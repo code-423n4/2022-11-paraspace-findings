@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "codecustard",
+  "risk": "2",
+  "title": "Using Deprecated Chainlink function latestAnswer",
+  "issueId": 5,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/5"
+}
