@@ -1,40 +1,20 @@
 ##
 
-##   [NC-1]   USE A MORE RECENT VERSION OF SOLIDITY
+##   [L-1]   USE A MORE RECENT VERSION OF SOLIDITY
 
    
   ####  latest solidity version is 0.8.17 . Use a solidity version of at least 0.8.12 to get string.concat() to be used instead of abi.encodePacked(<str>,<str>)
 
-There are  instances of this issue:
+There are 7  instances of this issue:
 
          File: 2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol
 
          2:   pragma solidity 0.8.10;
 
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol)
-         
-        File:  2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol
-
-        2:   pragma solidity 0.8.10; 
-
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol)
-
-
-         File:  2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol
-
-         2:   pragma solidity 0.8.10;
-
-
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol)
-
-      File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
-
-       2:   pragma solidity 0.8.10;
-
 
 ##
 
-##  [NC-2]  NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING
+##  [L-2]  NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING
 
   ####   Consider changing the variable to be an unnamed one
 
@@ -49,10 +29,44 @@ There are  instances of this issue:
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol)
 
+        File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
+
+
+       function getPrice(address _asset)
+        external
+        view
+        override
+        returns (uint256 price) 
+
+ [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol) 
+
+        2022-11-paraspace/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol
+
+
+         function getLiquidityAmount(uint256 tokenId)
+        external
+        view
+        returns (uint256 token0Amount, uint256 token1Amount)
+
+      function getLiquidityAmountFromPositionData(
+        UinswapV3PositionData memory positionData
+    ) public pure returns (uint256 token0Amount, uint256 token1Amount) {
+
+      function getLpFeeAmount(uint256 tokenId)
+        external
+        view
+        returns (uint256 token0Amount, uint256 token1Amount)
+
+        function getLpFeeAmountFromPositionData(
+        UinswapV3PositionData memory positionData
+    ) public view returns (uint256 token0Amount, uint256 token1Amount) {
+
+ [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol) 
+
 
 ##
 
-##   [NC-3 ]    CONSTANTS SHOULD BE DEFINED RATHER THAN USING MAGIC NUMBERS
+##   [L-3 ]    CONSTANTS SHOULD BE DEFINED RATHER THAN USING MAGIC NUMBERS
 
  ####  It is bad practice to use numbers directly in code without explanation
 
@@ -66,11 +80,19 @@ There are  instances of this issue:
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol)
 
+##
+
+## [L-4]  EXPRESSIONS FOR CONSTANT VALUES SUCH AS A CALL TO KECCAK256(), SHOULD USE IMMUTABLE RATHER THAN CONSTANT
+
+  ####   While it doesn’t save any gas because the compiler knows that developers often make this mistake, it’s still best to use the right tool for the task at hand. There is a difference between constant variables and immutable variables, and they should each be used in their appropriate contexts. constants should be used for literal values written into the code, and immutable variables should be used for expressions, or values calculated in, or passed into the constructor.
 
 
-File:  2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol
+         File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
 
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol)
+         70:     bytes32 public constant UPDATER_ROLE = keccak256("UPDATER_ROLE"); 
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
 
 
 
