@@ -1,4 +1,4 @@
-++i/i++ should be unchecked{++i}/unchecked{i++} when it is not possible for them to overflow.
+1. ++i/i++ should be unchecked{++i}/unchecked{i++} when it is not possible for them to overflow.
 
 File: paraspace-core/contracts/misc/NFTFloorOracle.sol
 
@@ -172,3 +172,14 @@ File: paraspace-core/contracts/ui/WPunkGateway.sol
 
 174:         for (uint256 i = 0; i < punkIndexes.length; i++) {
 
+
+
+2. [GAS-8] ++i costs less gas than i++, especially when it's used in for-loops (--i/i-- too).
+
+Missing two cases in the following:
+
+File: paraspace-core/contracts/misc/NFTFloorOracle.sol
+
+443:             while (pivot < arr[uint256(j)]) j--;
+
+450:                 j--;
