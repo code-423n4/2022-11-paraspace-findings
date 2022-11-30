@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "nicobevi",
+  "risk": "3",
+  "title": "Admin updated price will be overwritten next time a feeder submits a new price to the oracle",
+  "issueId": 30,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/30"
+}
