@@ -22,10 +22,39 @@
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol)
 
-## 
+##
 
+##  [GAS-2]  Use uint256 instead of uint8 . uint8 Can Increase Gas Cost. Possible to save 6 gas as per Remix IDE gas reports
 
+  ####  A smart contract's gas consumption can be higher if developers use items that are less than 32 bytes in size because the Ethereum Virtual Machine can only handle 32 bytes at a time. In order to increase the element's size to the necessary size, the EVM has to perform additional operations. 
 
+        File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
+
+       9:    uint8 constant MIN_ORACLES_NUM = 3;
+
+      12:   uint128 constant EXPIRATION_PERIOD = 1800;   //21505 uint128,uint128 Execution cost   // 21493   uint256,uint256 Execution cost 
+
+      14:   uint128 constant MAX_DEVIATION_RATE = 150;  //21505 uint128,uint128 Execution cost   // 21493   uint256,uint256 Execution cost 
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+##
+
+##   [GAS-3]  Compute known value off-chain
+
+####   If You know what data to hash, there is no need to consume more computational power to hash it using keccak256 , you’ll end up consuming 2x amount of gas.
+
+          File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
+
+          70:     bytes32 public constant UPDATER_ROLE = keccak256("UPDATER_ROLE");
+  
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+##
+
+##   [GAS-4]   FUNCTIONS GUARANTEED TO REVERT WHEN CALLED BY NORMAL USERS CAN BE MARKED PAYABLE
+
+####    If a function modifier such as onlyOwner,onlyRole is used, the function will revert if a normal user tries to pay the function. Marking the function as payable will lower the gas cost for legitimate callers because the compiler will not include checks for whether a payment was provided. The extra opcodes avoided are CALLVALUE(2),DUP1(3),ISZERO(3),PUSH2(3),JUMPI(10),PUSH1(3),DUP1(3),REVERT(0),JUMPDEST(1),POP(2), which costs an average of about 21 gas per call to the function, in addition to the extra deployment cost.
 
 
 
