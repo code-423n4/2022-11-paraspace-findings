@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "nicobevi",
+  "risk": "2",
+  "title": "`removeFeeder()` could be called by anyone on `NFTFloorOracle.sol`",
+  "issueId": 31,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/31"
+}
