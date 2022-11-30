@@ -5,7 +5,7 @@
    
   ####  latest solidity version is 0.8.17 . Use a solidity version of at least 0.8.12 to get string.concat() to be used instead of abi.encodePacked(<str>,<str>)
 
-There are 7  instances of this issue:
+There are 10 instances of this issue:
 
          File: 2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol
 
