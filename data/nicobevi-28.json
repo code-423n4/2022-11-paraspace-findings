@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "nicobevi",
+  "risk": "3",
+  "title": "NFTFloorOracle returns price 0 if an asset is whitelisted but any feeder has populated it's floor price yet.",
+  "issueId": 28,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/28"
+}
