@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "koxuan",
+  "risk": "2",
+  "title": "no checks on return of transferFrom in withdrawETH and withdrawETHWithPermit can cause loss of fund in ETHGateway",
+  "issueId": 20,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/20"
+}
