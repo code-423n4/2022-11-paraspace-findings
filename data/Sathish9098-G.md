@@ -35,6 +35,12 @@
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol) 
 
+            File:    2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/BorrowLogic.sol
+
+           151:    if (params.usePTokens && params.amount == type(uint256).max) {
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/BorrowLogic.sol) 
+
 ##
 
 ##  [GAS-2]  Use uint256 instead of uint8 . uint8 Can Increase Gas Cost. Possible to save 6 gas as per Remix IDE gas reports
@@ -112,6 +118,33 @@
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
 
+        2022-11-paraspace/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol
+
+        function setAddressAsProxy(bytes32 id, address newImplementationAddress)
+        external
+        override
+        onlyOwner
+
+        function setPoolConfiguratorImpl(address newPoolConfiguratorImpl)
+        external
+        override
+        onlyOwner
+
+        function setWETH(address newWETH) external override onlyOwner {
+
+       function setMarketplace(
+        bytes32 id,
+        address marketplace,
+        address adapter,
+        address operator,
+        bool paused
+    ) external override onlyOwner {
+
+      
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/configuration/PoolAddressesProvider.sol)
+
 ##
 
 ## [GAS-5]  ++I/I++ OR --I/I-- SHOULD BE UNCHECKED{++I}/UNCHECKED{I++} OR  UNCHECKED{--I}/UNCHECKED{I--}WHEN IT IS NOT POSSIBLE FOR THEM TO OVERFLOW, AS IS THE CASE WHEN USED IN FOR- AND WHILE-LOOPS
@@ -157,6 +190,14 @@
 
         [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol) 
 
+       File:    2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol
+
+        38:    for (i = 0; i < params.nftTokenIds.length; i++) {
+
+        56:     for (i = 0; i < params.nftTokenIds.length; i++) {
+
+ [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol) 
+
 ##
 
 ##   [GAS -6] Use uint256 instead of uint128 in Function parameters . So Possible to save 16 gas for every variables and function calls as per remix gas report. 
@@ -193,8 +234,53 @@
 
           211    sum += getTokenPrice(tokenIds[index]);
 
-          
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol) 
+
+
+            File:    2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol
+
+            vars.payableDebtByERC20Assets += vars
+                        .userBalanceInBaseCurrency
+                        .percentDiv(vars.liquidationBonus);
+
+           vars.totalCollateralInBaseCurrency += vars
+                        .userBalanceInBaseCurrency;
+
+
+          vars.avgLiquidationThreshold += vars.liquidationThreshold;
+
+         vars.totalDebtInBaseCurrency += _getUserDebtInBaseCurrency(
+                        params.user,
+                        currentReserve,
+                        vars.assetPrice,
+                        vars.assetUnit
+                    );
+
+        vars.avgERC721LiquidationThreshold += vars
+                        .liquidationThreshold;
+
+                    vars.totalERC721CollateralInBaseCurrency += vars
+                        .userBalanceInBaseCurrency;
+
+                    vars.totalCollateralInBaseCurrency += vars
+                        .userBalanceInBaseCurrency;
+
+                    vars.avgLtv += vars.ltv;
+
+                    vars.avgLiquidationThreshold += vars.liquidationThreshold;
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol) 
+
+##
+
+##  [GAS - 9] We can use bytes32 instead of string for fixed length inputs
+
+          File:  2022-11-paraspace/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol
+
+         22:   string private _marketId;
+
+
 
 
 
