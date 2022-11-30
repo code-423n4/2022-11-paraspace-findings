@@ -27,6 +27,11 @@ There are  instances of this issue:
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol)
 
+      File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
+
+       2:   pragma solidity 0.8.10;
+
+
 ##
 
 ##  [NC-2]  NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING
