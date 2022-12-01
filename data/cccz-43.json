@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "cccz",
+  "risk": "3",
+  "title": "LiquidationLogic._burnDebtTokens: Interest rate update is incorrect",
+  "issueId": 43,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/43"
+}
