@@ -18,3 +18,7 @@ Change ``bytes memory parameter`` to ``bytes calldata paramter``. This will save
 
 G5: https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol#L31
 change ``bytes memory params`` to ``bytes calldata params``.
+
+G6: https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L403
+There is no need to cache ``block.number``, which only introduces more gas.
+
