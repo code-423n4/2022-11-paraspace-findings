@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Lambda",
+  "risk": "2",
+  "title": "MintableIncentivizedERC721: Wrong safeTransferFrom implementation",
+  "issueId": 51,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/51"
+}
