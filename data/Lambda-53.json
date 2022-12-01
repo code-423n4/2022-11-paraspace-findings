@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Lambda",
+  "risk": "3",
+  "title": "NFTFloorOracle._quickSort can underflow, leading to unsuccessful price updates",
+  "issueId": 53,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/53"
+}
