@@ -4,7 +4,7 @@ paraspace-core/contracts/misc/NFTFloorOracle.sol: [381](https://github.com/code-
 
 reading from storage like ```assetPriceMapEntry.twap``` and ```assetPriceMapEntry.updatedAt``` consumes more gas.
 
-Consider this
+Consider this (saves ~213 gas)
 
 ```solidity
         emit AssetDataSet(
