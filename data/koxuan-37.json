@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "koxuan",
+  "risk": "2",
+  "title": "withdrawPunk can cost loss of nft if receiver is a smart contract that does not support punk tokens",
+  "issueId": 37,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/37"
+}
