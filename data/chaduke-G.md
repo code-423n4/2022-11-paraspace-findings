@@ -12,3 +12,6 @@ Change this line to the following to avoid a SLOAD since ``xTokenAddress `` has 
             msg.sender
         );
 ```
+
+G4. https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L25
+Change ``bytes memory parameter`` to ``bytes calldata paramter``. This will save gas when the function is called by a write function. 
