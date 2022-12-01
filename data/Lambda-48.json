@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Lambda",
+  "risk": "2",
+  "title": "ParaSpaceOracle: Negative prices not correctly handled",
+  "issueId": 48,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/48"
+}
