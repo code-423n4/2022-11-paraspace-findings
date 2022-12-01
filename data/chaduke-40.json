@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "chaduke",
+  "risk": "3",
+  "title": "There might be a discrepency between value and msg.value",
+  "issueId": 40,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/40"
+}
