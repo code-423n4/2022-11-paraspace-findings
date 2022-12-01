@@ -84,3 +84,20 @@ File: UniswapV3OracleWrapper.sol
 
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L266
 
+# [N-04] Typo in comments
+
+
+File: LiquidationLogic.sol
+
+ //userDebt from liquadationReserve  - `liquidationReserve`
+
+- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/LiquidationLogic.sol#L104
+
+File: NFTFloorOrcale.sol
+
+/// aggeregate prices  - `aggregate`
+ //aggeregate with price - `aggregate`
+
+- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L53
+- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L412
+
