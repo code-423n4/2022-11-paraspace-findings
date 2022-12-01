@@ -43,3 +43,14 @@ struct PairOracleData {
         uint160 sqrtPriceX96;
         uint256 token1Price;
     }
+4. FRONT-RUNNABLE INITIALIZERS :-
+There is no access control for initializers function. Allowing any user to initialize the contract. By front-running the contract deployers to initialize the contract, the incorrect parameters may be supplied, leaving the contract needing to be redeployed. 
+
+code snippet:-
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L75
+
+Recommendation:-
+Setting the owner in the contract's constructor to the msg.sender and adding the onlyOwner modifier to all initializers
+
+reference :-
+https://github.com/code-423n4/2022-01-trader-joe-findings/issues/8
