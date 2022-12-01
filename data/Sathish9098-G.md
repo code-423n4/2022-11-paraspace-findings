@@ -41,6 +41,106 @@
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/BorrowLogic.sol) 
 
+           2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/LiquidationLogic.sol
+
+
+           if (
+            superVars.auctionEnabled &&
+            IAuctionableERC721(superVars.collateralXToken).isAuctioned(
+                params.collateralTokenId
+            )
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/LiquidationLogic.sol) 
+
+
+  2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
+
+              171:   require(
+                    marketplaceIds.length == payloads.length &&
+                    payloads.length == credits.length,
+                    Errors.INCONSISTENT_PARAMS_LENGTH
+                     );
+
+            279:  require(
+            marketplaceIds.length == payloads.length &&
+                payloads.length == credits.length,
+            Errors.INCONSISTENT_PARAMS_LENGTH
+             );
+
+           579:   if (
+            vars.ethLeft > 0 &&
+            orderInfo.consideration[0].itemType != ItemType.NATIVE
+        ) {
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/libraries/logic/MarketplaceLogic.sol)
+
+
+                  2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol
+
+                  474 :   if (params.from != params.to && params.amount != 0) { 
+
+                  662:    if (oldCollateralizedBalance == 0 && newCollateralizedBalance != 0) {
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol) 
+
+
+2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol
+
+
+             546:  require(
+            vars.collateralReserveActive && vars.principalReserveActive,
+            Errors.RESERVE_INACTIVE
+              );
+            550:   require(
+            !vars.collateralReservePaused && !vars.principalReservePaused,
+            Errors.RESERVE_PAUSED
+            );
+
+         636:   require(
+            vars.collateralReserveActive && vars.principalReserveActive,
+            Errors.RESERVE_INACTIVE
+              );
+        640:    require(
+            !vars.collateralReservePaused && !vars.principalReservePaused,
+            Errors.RESERVE_PAUSED
+             );
+
+        672:   require(
+            params.maxLiquidationAmount >= params.actualLiquidationAmount &&
+                (msg.value == 0 || msg.value >= params.maxLiquidationAmount),
+            Errors.LIQUIDATION_AMOUNT_NOT_ENOUGH
+        );
+
+        1202:   require(
+                !vars.token0IsPaused && !vars.token1IsPaused,
+                Errors.RESERVE_PAUSED
+            );
+
+         1208:  require(
+                !vars.token0IsFrozen && !vars.token1IsFrozen,
+                Errors.RESERVE_FROZEN
+            );
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol) 
+
+
+
+        2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolParameters.sol
+
+        216:    require(
+            value > MIN_AUCTION_HEALTH_FACTOR &&
+                value <= MAX_AUCTION_HEALTH_FACTOR,
+            Errors.INVALID_AMOUNT
+              );
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol) 
+
+       
+                
+
+
 ##
 
 ##  [GAS-2]  Use uint256 instead of uint8 . uint8 Can Increase Gas Cost. Possible to save 6 gas as per Remix IDE gas reports
@@ -58,6 +158,23 @@
       330:  uint8 feederIndex = feederPositionMap[_feeder].index;  
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+
+2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol
+
+
+        function verifyCreditSignature(
+        DataTypes.Credit memory credit,
+        address signer,
+        uint8 v,   //@AUDIT UINT256 
+        bytes32 r,
+        bytes32 s
+        ) private view returns (bool) {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol) 
+
+        
 
 ##
 
@@ -188,7 +305,7 @@
 
        210 :   for (uint256 index = 0; index < tokenIds.length; index++) {
 
-        [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol) 
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol) 
 
        File:    2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol
 
@@ -197,6 +314,105 @@
         56:     for (i = 0; i < params.nftTokenIds.length; i++) {
 
  [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol) 
+
+       File:    2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol
+
+       466:    for (uint256 index = 0; index < totalBalance; index++) {
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol) 
+
+
+      2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
+
+      177:    for (uint256 i = 0; i < marketplaceIds.length; i++) {
+
+      284:    for (uint256 i = 0; i < marketplaceIds.length; i++) {
+
+     382:     for (uint256 i = 0; i < params.orderInfo.consideration.length; i++) {
+
+     470:     for (uint256 i = 0; i < params.orderInfo.offer.length; i++) {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/libraries/logic/MarketplaceLogic.sol) 
+
+
+       2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol
+ 
+         58:     for (uint16 i = 0; i < params.reservesCount; i++) {
+
+         104:   for (uint256 i = 0; i < assets.length; i++) {
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol) 
+
+
+        2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol
+
+          195:    for (uint256 index = 0; index < params.tokenData.length; index++) {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol) 
+
+ 
+         2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol
+
+  
+           131:      for (uint256 index = 0; index < amount; index++) {
+
+           212 :     for (uint256 index = 0; index < tokenIds.length; index++) {
+
+          465:        for (uint256 index = 0; index < tokenIds.length; index++) {
+
+          910:       for (uint256 index = 0; index < tokenIds.length; index++) {
+
+          1034:     for (uint256 i = 0; i < params.nftTokenIds.length; i++) {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol) 
+
+
+          2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol
+
+          72:    for (uint256 index = 0; index < _nfts.length; index++) {
+
+         103:   for (uint256 index = 0; index < _nfts.length; index++) {
+
+         138:   for (uint256 index = 0; index < _nftPairs.length; index++) {
+
+         172:   for (uint256 index = 0; index < actualTransferAmount; index++) {
+
+         199:    for (uint256 index = 0; index < _nftPairs.length; index++) {
+
+         215:    for (uint256 index = 0; index < _nftPairs.length; index++) {
+
+         279:    for (uint256 index = 0; index < _nfts.length; index++) {
+
+         289:    for (uint256 index = 0; index < _nftPairs.length; index++) {
+
+        305:     for (uint256 index = 0; index < _nftPairs.length; index++) {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol)
+
+
+          2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolCore.sol
+
+
+           634:   for (uint256 i = 0; i < reservesListCount; i++) { 
+
+           638:    droppedReservesCount++;
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol) 
+
+
+       
+
+          
+
+
+        
+
+     
 
 ##
 
@@ -211,6 +427,31 @@
 
  [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol) 
 
+
+
+              2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolCore.sol
+
+
+               237:   function decreaseUniswapV3Liquidity(
+                       address asset,
+                       uint256 tokenId,
+                      uint128 liquidityDecrease,        //@audit uint256
+                        uint256 amount0Min,
+                   uint256 amount1Min,
+                   bool receiveEthAsWeth
+                   ) external virtual override nonReentrant {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol) 
+
+
+               
+
+
+
+
+
+
 ##
 
 
@@ -221,6 +462,16 @@
                362:   if (_priorTwap == 0 || _updatedAt == 0) {
            
  [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol) 
+
+           2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
+
+             388:   require(
+                item.itemType == ItemType.ERC20 ||
+                    (vars.isETH && item.itemType == ItemType.NATIVE),
+                Errors.INVALID_ASSET_TYPE
+            );
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/libraries/logic/MarketplaceLogic.sol)
 
 ##
 
@@ -269,8 +520,37 @@
 
                     vars.avgLiquidationThreshold += vars.liquidationThreshold;
 
+                  479:    totalValue += tokenPrice;
 
+                  496:   totalLTV += tmpLTV * tokenPrice;
+
+                  497:    totalLiquidationThreshold +=
+                             tmpLiquidationThreshold *
+                             tokenPrice;
+
+            
+
+          
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol) 
+
+               2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol    
+
+               397:   price += item.startAmount;
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/libraries/logic/MarketplaceLogic.sol) 
+
+
+             2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol
+
+                   77:   amountToWithdraw += _nfts[index].amount;
+
+                   166:   amountToWithdraw += _nftPairs[index].amount;
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol) 
+
+
+            
 
 ##
 
@@ -280,11 +560,133 @@
 
          22:   string private _marketId;
 
+##
+
+##[GAS-10]   Use uint256 instead of uint16 in Function parameters AND varibales . So Possible to save 16 gas for every variables and function calls as per remix gas report. 
+
+
+        2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
+
+        function executeBuyWithCredit(
+        bytes32 marketplaceId,
+        bytes calldata payload,
+        DataTypes.Credit calldata credit,
+        DataTypes.PoolStorage storage ps,
+        IPoolAddressesProvider poolAddressProvider,
+        uint16 referralCode                                                      //@AUDIT UINT256
+       ) external {
+
+       229:   function executeAcceptBidWithCredit(
+        bytes32 marketplaceId,
+        bytes calldata payload,
+        DataTypes.Credit calldata credit,
+        address onBehalfOf,
+        DataTypes.PoolStorage storage ps,
+        IPoolAddressesProvider poolAddressProvider,
+        uint16 referralCode                                                               //@AUDIT UINT256
+
+       267:  function executeBatchAcceptBidWithCredit(
+        bytes32[] calldata marketplaceIds,
+        bytes[] calldata payloads,
+        DataTypes.Credit[] calldata credits,
+        address onBehalfOf,
+        DataTypes.PoolStorage storage ps,
+        IPoolAddressesProvider poolAddressProvider,
+        uint16 referralCode                                                                     //@AUDIT UINT256
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/libraries/logic/MarketplaceLogic.sol) 
+
+
+          2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol
+ 
+         58:     for (uint16 i = 0; i < params.reservesCount; i++) {          //@AUDIT UINT256
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol) 
+
+
+2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol
+             
+           function executeSupplyERC721Base(
+        uint16 reserveId,                                                          //  @AUDIT UINT256
+        address nTokenAddress,
+        DataTypes.UserConfigurationMap storage userConfig,
+        DataTypes.ExecuteSupplyERC721Params memory params
+       ) internal {
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol) 
+
+
+         2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolCore.sol
+
+              91:   function supply(
+             address asset,
+             uint256 amount,
+             address onBehalfOf,
+            uint16 referralCode                                                   //  @AUDIT UINT256
+            ) external virtual override nonReentrant {
 
 
 
+          156:   function supplyWithPermit(
+        address asset,
+        uint256 amount,
+        address onBehalfOf,
+        uint16 referralCode,                                            //  @AUDIT UINT256
+        uint256 deadline,
+        uint8 permitV,                                                        //  @AUDIT UINT256
+        bytes32 permitR,
+        bytes32 permitS
+    ) external virtual override nonReentrant {
 
 
+
+       function borrow(
+        address asset,
+        uint256 amount,
+        uint16 referralCode,                                                     //  @AUDIT UINT256
+        address onBehalfOf
+    ) external virtual override nonReentrant {
+        DataTypes.PoolStorage storage ps = poolStorage();
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol) 
+
+
+         2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolMarketplace.sol
+
+         94:   uint16 referralCode
+
+         114:  uint16 referralCode
+
+         135:   uint16 referralCode
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolMarketplace.sol) 
+
+      
+    
+##
+
+##    [GAS-11]    Use uint256 instead of uint64  . Can save more gas 
+
+2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol
+        
+           144:    uint64 oldCollateralizedBalance,
+
+            145:    uint64 newCollateralizedBalance
+
+            356:    uint64 oldCollateralizedBalance,
+           
+            357:     uint64 newCollateralizedBalance
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol) 
+  
+
+2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol) 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
