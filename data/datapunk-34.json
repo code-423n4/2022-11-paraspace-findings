@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "datapunk",
+  "risk": "3",
+  "title": "msg.value is not checked against value in matchAskWithTakerBid",
+  "issueId": 34,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/34"
+}
