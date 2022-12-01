@@ -48,9 +48,31 @@ There is no access control for initializers function. Allowing any user to initi
 
 code snippet:-
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L75
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L52
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/ui/WPunkGateway.sol#L57
 
 Recommendation:-
 Setting the owner in the contract's constructor to the msg.sender and adding the onlyOwner modifier to all initializers
 
 reference :-
 https://github.com/code-423n4/2022-01-trader-joe-findings/issues/8
+
+
+5. Uneccassary imported contract :-
+
+code snippet :-
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L9
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L10
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L11
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L12
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L13
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L14
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L15
+
+And All scoped contract is having this same .
+
+6. Instead of struct declare as a state variable  :-
+One item in struct is not efficient than one state variable 
+
+code snippet:-
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol#L26
