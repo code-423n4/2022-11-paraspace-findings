@@ -56,6 +56,15 @@ Here are the instances entailed:
 
 63:        ConsiderationItem[] memory consideration = new ConsiderationItem[](1);
 ```
+[File: NFTFloorOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+```
+357:        PriceInformation memory assetPriceMapEntry = assetPriceMap[_asset];
+
+410:        uint256[] memory validPriceList = new uint256[](feederSize);
+
+414:            PriceInformation memory priceInfo = feederRegistrar.feederPrice[
+```
 ## Ternary Over if ... else
 Using ternary operator instead of the if else statement saves gas. 
 
@@ -113,6 +122,19 @@ All other instances entailed:
 
 ```
 92:    ) external payable override returns (bytes memory) {
+```
+[File: NFTFloorOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+```
+261:    function getFeederSize() public view returns (uint256) {
+
+270:    function _isAssetExisted(address _asset) internal view returns (bool) {
+
+274:    function _isFeederExisted(address _feeder) internal view returns (bool) {
+
+354:        returns (bool)
+
+400:        returns (bool, uint256)
 ```
 ## Merging and Filtering Off Identical Imports
 In `LooksRareAdapter.sol`, the following two lines of imports originate from the same `ConsiderationStructs.sol`:
@@ -296,3 +318,76 @@ PUSH1 [revert offset]
 JUMPI
 ```
 Disclaimer: There have been several bugs with security implications related to optimizations. For this reason, Solidity compiler optimizations are disabled by default, and it is unclear how many contracts in the wild actually use them. Therefore, it is unclear how well they are being tested and exercised. High-severity security issues due to optimization bugs have occurred in the past . A high-severity bug in the emscripten -generated solc-js compiler used by Truffle and Remix persisted until late 2018. The fix for this bug was not reported in the Solidity CHANGELOG. Another high-severity optimization bug resulting in incorrect bit shift results was patched in Solidity 0.5.6. Please measure the gas savings from optimizations, and carefully weigh them against the possibility of an optimization-related bug. Also, monitor the development and adoption of Solidity compiler optimizations to assess their maturity.
+
+## Payable Access Control Functions Costs Less Gas
+Consider marking functions with access control as `payable`. This will save 20 gas on each call by their respective permissible callers for not needing to have the compiler check for `msg.value`. 
+
+Here are the instances entailed:
+
+[File: NFTFloorOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+```
+141:        onlyRole(DEFAULT_ADMIN_ROLE)
+
+150:        onlyRole(DEFAULT_ADMIN_ROLE)
+
+160:        onlyRole(DEFAULT_ADMIN_ROLE)
+
+177:        onlyRole(DEFAULT_ADMIN_ROLE)
+
+185:        onlyRole(DEFAULT_ADMIN_ROLE)
+
+197:        onlyRole(UPDATER_ROLE)
+```
+## Non-strict inequalities are cheaper than strict ones
+In the EVM, there is no opcode for non-strict inequalities (>=, <=) and two operations are performed (> + = or < + =).
+
+As an example, consider replacing `>=` with the strict counterpart `>` in the following inequality instance:
+
+[File: NFTFloorOracle.sol#L370](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L370)
+
+```
+        if (priceDeviation > config.maxPriceDeviation - 1) {
+```
+Similarly, as an example, consider replacing `<=` with the strict counterpart `<` in the following inequality instance:
+
+[File: NFTFloorOracle.sol#L244](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L244)
+
+```
+            (block.number - updatedAt) < config.expirationPeriod + 1,
+```
+All other `<=` instances entailed:
+
+[File: NFTFloorOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+```
+419:                if (diffBlock <= config.expirationPeriod) {
+
+441:        while (i <= j) {
+
+444:            if (i <= j) {
+```
+## Unchecked SafeMath Saves Gas
+"Checked" math, which is default in ^0.8.0 is not free. The compiler will add some overflow checks, somehow similar to those implemented by `SafeMath`. While it is reasonable to expect these checks to be less expensive than the current `SafeMath`, one should keep in mind that these checks will increase the cost of "basic math operation" that were not previously covered. This particularly concerns variable increments in for loops. When no arithmetic overflow/underflow is going to happen, `unchecked { ... }` to use the previous wrapping behavior further saves gas just as in the for loop below as an example:
+
+[File: NFTFloorOracle.sol#L229-L231](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L229-L231)
+
+```
+    unchecked {
+        for (uint256 i = 0; i < _assets.length; i++) {
+            setPrice(_assets[i], _twaps[i]);
+        }
+    }
+```
+All other instances enailed:
+
+[File: NFTFloorOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+```
+321:        for (uint256 i = 0; i < _feeders.length; i++) {
+
+413:        for (uint256 i = 0; i < feederSize; i++) {
+
+442:            while (arr[uint256(i)] < pivot) i++;
+443:            while (pivot < arr[uint256(j)]) j--;
+```
