@@ -22,3 +22,22 @@ change ``bytes memory params`` to ``bytes calldata params``.
 G6: https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L403
 There is no need to cache ``block.number``, which only introduces more gas.
 
+G7. https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L35
+Replacing line 35 by the implementation of ``_onlyAssetListingOrPoolAdmins()`` can save gas. There is 
+no need to have another level of function call here. 
+
+G8: https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol#L342-L354
+It can be simplified by eliminating all the unnecessary variables as follows:
+```
+function _getProxyImplementation(bytes32 id) internal returns (address) {
+            return
+                InitializableImmutableAdminUpgradeabilityProxy(
+                    payable(_addresses[id])
+                ).implementation();
+}
+```
+G9: https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol#L313
+chanage the line to the following to avoid unnecessary type conversion. 
+```
+proxy = IParaProxy(new ParaProxy(address(this)));
+```
