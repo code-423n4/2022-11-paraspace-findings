@@ -5,11 +5,9 @@
    
   ####  latest solidity version is 0.8.17 . Use a solidity version of at least 0.8.12 to get string.concat() to be used instead of abi.encodePacked(<str>,<str>)
 
-There are 10 instances of this issue:
+There are 22 instances of this issue
 
-         File: 2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol
-
-         2:   pragma solidity 0.8.10;
+      pragma solidity 0.8.10;
 
 
 ##
@@ -64,9 +62,42 @@ There are 10 instances of this issue:
  [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol) 
 
 
+     2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol
+
+        function executeGetUserAccountData(
+        address user,
+        DataTypes.PoolStorage storage ps,
+        address oracle
+         )
+        external
+        view
+        returns (
+            uint256 totalCollateralBase,
+            uint256 totalDebtBase,
+            uint256 availableBorrowsBase,
+            uint256 currentLiquidationThreshold,
+            uint256 ltv,
+            uint256 healthFactor,
+            uint256 erc721HealthFactor
+           )
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol)
+
 ##
 
-##   [L-3 ]    CONSTANTS SHOULD BE DEFINED RATHER THAN USING MAGIC NUMBERS
+## [L-3]   STRUCT SHOULD BE DECLARED IN THE DECLARATION SECTIONS. IN ValidationLogic.sol FILE STRUCT DECLARED IN CENTER OF THE CONTRACT. THIS IS NOT A GOOD CODE PRACTICE. 
+
+[ValidationLogic.sol](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L225-L245)
+
+[ValidationLogic.sol](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L478-L492)
+
+
+
+
+##
+
+##   [L-4 ]    CONSTANTS SHOULD BE DEFINED RATHER THAN USING MAGIC NUMBERS
 
  ####  It is bad practice to use numbers directly in code without explanation
 
@@ -76,13 +107,19 @@ There are 10 instances of this issue:
 
             require(
             // NOT criteria based and must be basic order
-            advancedOrders.length == 2 &&
+            advancedOrders.length == 2 
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol)
 
+
+            2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolStorage.sol
+
+        17:     bytes32 constant POOL_STORAGE_POSITION =
+                  bytes32(uint256(keccak256("paraspace.proxy.pool.storage")) - 1);
+
 ##
 
-## [L-4]  EXPRESSIONS FOR CONSTANT VALUES SUCH AS A CALL TO KECCAK256(), SHOULD USE IMMUTABLE RATHER THAN CONSTANT
+## [L-5]  EXPRESSIONS FOR CONSTANT VALUES SUCH AS A CALL TO KECCAK256(), SHOULD USE IMMUTABLE RATHER THAN CONSTANT
 
   ####   While it doesn’t save any gas because the compiler knows that developers often make this mistake, it’s still best to use the right tool for the task at hand. There is a difference between constant variables and immutable variables, and they should each be used in their appropriate contexts. constants should be used for literal values written into the code, and immutable variables should be used for expressions, or values calculated in, or passed into the constructor.
 
@@ -92,6 +129,16 @@ There are 10 instances of this issue:
          70:     bytes32 public constant UPDATER_ROLE = keccak256("UPDATER_ROLE"); 
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
+
+
+        2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolStorage.sol
+
+        17:     bytes32 constant POOL_STORAGE_POSITION =
+                  bytes32(uint256(keccak256("paraspace.proxy.pool.storage")) - 1);
+
+
+##
+
 
 
 
