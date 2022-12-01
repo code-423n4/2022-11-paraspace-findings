@@ -12,6 +12,7 @@ ConsiderationItem\[\] memory consideration = new ConsiderationItem[](/Applicatio
 Lines of code:
 
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L37
+
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L47
 
 # \[G‑02\] Functions guaranteed to revert when called by normal users can be marked payable
@@ -100,37 +101,6 @@ Lines of code:
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L88
 
 
-# [G-05]  ++I/I++ SHOULD BE UNCHECKED{++I}/UNCHECKED{I++} WHEN IT IS NOT POSSIBLE FOR THEM TO OVERFLOW, AS IS THE CASE WHEN USED IN FOR- AND WHILE-LOOPS
-
- 
-
-The unchecked keyword is new in solidity version 0.8.0, so this only applies to that version or higher, which these instances are. This saves 30-40 gas per loop:
-
- for (uint256 i = 0; i < _assets.length; i++) {
-            setPrice(_assets[i], _twaps[i]);
-        }
-
-- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L229
-
-for (uint256 i = 0; i < _assets.length; i++) {
-            _addAsset(_assets[i]);
-        }
-
-- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L291
-
- for (uint256 i = 0; i < _feeders.length; i++) {
-            _addFeeder(_feeders[i]);
-        }
-
-- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L321
-
-for (uint256 i = 0; i < feederSize; i++) {
-            PriceInformation memory priceInfo = feederRegistrar.feederPrice[
-                feeders[i]
-            ]; 
-
-- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L413
-
 # [G-06] x += y COSTS MORE GAS THAN x= x + y FOR STATE VARIABLES
 
 Using the addition operator instead of plus-equals saves 113 gas
@@ -146,9 +116,25 @@ sum += getTokenPrice(tokenIds[index]);
 Lines of code:
 
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L149
+
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L150
 
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L211
+
+
+File: GenericLogic.sol
+
+totalValue += tokenPrice;
+totalLTV += tmpLTV * tokenPrice;
+totalValue += _getTokenPrice(
+
+Lines of code:
+
+- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L479
+
+- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L496
+
+- https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L380
 
 # [G-07] Using `calldata` instead of `memory` for read-only arguments in EXTERNAL FUNCTIONS SAVES GAS - 2
 
