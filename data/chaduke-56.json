@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "chaduke",
+  "risk": "3",
+  "title": "supplyWithPermit permission is not correctly implemented",
+  "issueId": 56,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/56"
+}
