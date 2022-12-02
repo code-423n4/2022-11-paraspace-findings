@@ -16,7 +16,7 @@ reading from storage like ```assetPriceMapEntry.twap``` and ```assetPriceMapEntr
 
 # [G-02] OPTIMIZE ```_quickSort``` FUNCTION WITH ```unchecked```
 
-main/paraspace-core/contracts/misc/NFTFloorOracle.sol: [432](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L432)
+paraspace-core/contracts/misc/NFTFloorOracle.sol: [432](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L432)
 
 ## Suggest (saves ~3900 gas) Tested on array with length `10`
 
