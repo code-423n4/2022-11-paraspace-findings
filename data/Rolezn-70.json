@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Rolezn",
+  "risk": "2",
+  "title": "Admin privilege - A single point of failure can allow a hacked or malicious owner use critical functions in the project",
+  "issueId": 70,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/70"
+}
