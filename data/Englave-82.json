@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Englave",
+  "risk": "2",
+  "title": "Denial of Service during setPrice",
+  "issueId": 82,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/82"
+}
