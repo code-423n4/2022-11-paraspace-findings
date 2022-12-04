@@ -8,14 +8,15 @@ Also, in a lot of cases, the function behaviour and params explanation are place
 Add missing useful comments where needed
 
 ## Issue
-Unnecessary `onlyWhenFeederExisted(_feeder)` modifier used in the internal `_removeFeeder()` function. The same modifier is used inside the external `removeFeeder()` which calls the internal `_removeFeeder()` function
+Unnecessary [`onlyWhenFeederExisted(_feeder)`](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L169
+) modifier used in the internal `_removeFeeder()` function. The same modifier is used inside the external `removeFeeder()` which calls the internal `_removeFeeder()` function
 ## Example
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L169
 ## Recommendation
 Remove `onlyWhenFeederExisted(_feeder)` modifier from the internal `_removeFeeder()` function since it is only called by the external `removeFeeder()`
 
 ## Issue
-Unnecessary `onlyWhenAssetExisted(_asset)` modifier used in the internal `_removeAsset()` function. The same modifier is used inside the external `_removeAsset()` which calls the internal `_removeAsset()` function
+Unnecessary [`onlyWhenAssetExisted(_asset)`](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L298) modifier used in the internal `_removeAsset()` function. The same modifier is used inside the external `_removeAsset()` which calls the internal `_removeAsset()` function
 ## Example
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L298
 ## Recommendation
