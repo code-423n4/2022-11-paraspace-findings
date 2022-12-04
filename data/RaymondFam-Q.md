@@ -63,15 +63,7 @@ Consider executing the needed assignment before the conditional statement on lin
 ...
 365:        priceDeviation > _priorTwap
 ```
-## Lack of Events for Critical Operations
-Critical operations not triggering events will make it difficult to review the correct behavior of the deployed contracts. Users and blockchain monitoring systems will not be able to detect suspicious behaviors at ease without events. Consider adding events where appropriate for all critical operations for better support of off-chain logging API. 
+## revokeRole() for _removeFeeder()
+In `NFTFloorOracle.sol`, the modifier, `onlyRole(DEFAULT_ADMIN_ROLE)`, has not been included as a function visibility for `removeFeeder()` because a similar check will be executed when externally calling `revokeRole()` in `_removeFeeder()`.
 
-Here are the instances entailed:
-
-[File: NFTFloorOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
-
-```
-148:    function removeAsset(address _asset)
-
-
-```
+Consider moving [line 336](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L336), `revokeRole(UPDATER_ROLE, _feeder);`, to the beginning line of the function code block so that it would revert as early as possible whenever `removeFeeder()`, an external function, was invoked by a non-Admin.
