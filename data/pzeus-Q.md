@@ -21,3 +21,10 @@ Unnecessary [`onlyWhenAssetExisted(_asset)`](https://github.com/code-423n4/2022-
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L298
 ## Recommendation
 Remove `onlyWhenAssetExisted(_asset)` modifier from the internal `_removeAsset()` function since it is only called by the external `removeAsset()`
+
+## Issue
+There are getters which can be reused inside a contract
+## Examples
+`ParaSpaceOracle.sol` [1](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L214) & [2](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L204)
+## Recommendation
+Use `getSourceOfAsset()` on every `assetsSources[asset]` occurence inside `ParaSpaceOracle.sol` contract and `getFallbackOracle()` on every `address(_fallbackOracle)` occurrence
