@@ -79,3 +79,155 @@ paraspace-core/contracts/misc/NFTFloorOracle.sol: [328](https://github.com/code-
          _removeFeeder(_feeder);
      }
 ```
+# [G-04] UNCHECKING ARITHMETICS OPERATIONS THAT CAN’T UNDERFLOW/OVERFLOW (34 INSTANCES)
+
+paraspace-core/contracts/misc/NFTFloorOracle.sol: [229](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L229)
+
+```diff
+-        for (uint256 i = 0; i < _assets.length; i++) {
++        for (uint256 i = 0; i < _assets.length;) {
+             setPrice(_assets[i], _twaps[i]);
++
++            unchecked { ++i; }
+         }
+```
+
+paraspace-core/contracts/misc/NFTFloorOracle.sol: [293](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L291)
+
+```diff
+     function _addAssets(address[] memory _assets) internal {
+-        for (uint256 i = 0; i < _assets.length; i++) {
++        for (uint256 i = 0; i < _assets.length;) {
+             _addAsset(_assets[i]);
++
++            unchecked { ++i; }
+         }
+     }
+```
+
+paraspace-core/contracts/misc/NFTFloorOracle.sol: [320](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L320)
+
+```diff
+     function _addFeeders(address[] memory _feeders) internal {
+-        for (uint256 i = 0; i < _feeders.length; i++) {
++        for (uint256 i = 0; i < _feeders.length;) {
+             _addFeeder(_feeders[i]);
++
++            unchecked { ++i; }
+         }
+     }
+```
+
+paraspace-core/contracts/misc/NFTFloorOracle.sol: [413](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L413)
+
+```diff
+-        for (uint256 i = 0; i < feederSize; i++) {
++        for (uint256 i = 0; i < feederSize;) {
+             PriceInformation memory priceInfo = feederRegistrar.feederPrice[
+                 feeders[i]
+             ];
+@@ -421,10 +428,13 @@ contract NFTFloorOracle is Initializable, AccessControl, INFTFloorOracle {
+                     validNum++;
+                 }
+             }
++
++            unchecked { ++i; }
+         }
+```
+
+paraspace-core/contracts/misc/ParaSpaceOracle.so: [95](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L95)
+```diff
+-        for (uint256 i = 0; i < assets.length; i++) {
++        for (uint256 i = 0; i < assets.length;) {
+             require(
+                 assets[i] != BASE_CURRENCY,
+                 Errors.SET_ORACLE_SOURCE_NOT_ALLOWED
+             );
+             assetsSources[assets[i]] = sources[i];
+             emit AssetSourceUpdated(assets[i], sources[i]);
++
++            unchecked { ++i; }
+         }
+     }
+```
+
+paraspace-core/contracts/misc/ParaSpaceOracle.sol: [197](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L197)
+
+```diff
+-        for (uint256 i = 0; i < assets.length; i++) {
++        for (uint256 i = 0; i < assets.length;) {
+             prices[i] = getAssetPrice(assets[i]);
++
++            unchecked { ++i; }
+         }
+```
+
+paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol: [193](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L193)
+
+```diff
+-        for (uint256 index = 0; index < tokenIds.length; index++) {
++        for (uint256 index = 0; index < tokenIds.length;) {
+             prices[index] = getTokenPrice(tokenIds[index]);
++
++            unchecked { ++index; }
+         }
+```
+
+paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol: [210](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L210)
+
+```diff
+-        for (uint256 index = 0; index < tokenIds.length; index++) {
++        for (uint256 index = 0; index < tokenIds.length;) {
+             sum += getTokenPrice(tokenIds[index]);
++
++            unchecked { ++index; }
+         }
+```
+
+paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.so: [38](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol#L38)
+
+```diff
+-        for (i = 0; i < params.nftTokenIds.length; i++) {
++        for (i = 0; i < params.nftTokenIds.length;) {
+             INToken(nTokenAddress).transferUnderlyingTo(
+                 params.receiverAddress,
+                 params.nftTokenIds[i]
+             );
++
++            unchecked { ++i; }
+         }
+```
+
+paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol: [56](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol#L56)
+
+```diff
+-        for (i = 0; i < params.nftTokenIds.length; i++) {
++        for (i = 0; i < params.nftTokenIds.length;) {
+             IERC721(params.nftAsset).safeTransferFrom(
+                 params.receiverAddress,
+                 nTokenAddress,
+@@ -66,6 +68,8 @@ library FlashClaimLogic {
+                 params.nftAsset,
+                 params.nftTokenIds[i]
+             );
++
++            unchecked { ++i; }
+```
+
+paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol: [371](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L371), [466](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L466)
+paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol: [177](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L177), [284](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L284), [382](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L382), [470](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L470)
+paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol: [58](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol#L58), [104](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol#L104)
+paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol: [184](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol#L184), [195](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol#L195)
+paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol: [131](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L131), [212](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L212), [465](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L465), [910](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L910), [1034](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L1034)
+main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol: [72](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L72), [103](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L103), [138](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L138), [172](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L172), [199](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L199), [215](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L215), [279](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L279), [289](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L289), [305](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L305)
+
+# [G-05] ```X = X + Y``` IS MORE EFFICIENT, THAN ```X += Y``` (3 INSTANCE)
+
+paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol: [211](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L211)
+
+```diff
+-            sum += getTokenPrice(tokenIds[index]);
++            sum = sum + getTokenPrice(tokenIds[index]);
+```
+
+paraspace-core/contracts/protocol/pool/PoolApeStaking.sol: [77](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L77), [166](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L166)
