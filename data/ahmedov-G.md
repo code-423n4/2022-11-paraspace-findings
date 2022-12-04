@@ -6,12 +6,17 @@ reading from storage like ```assetPriceMapEntry.twap``` and ```assetPriceMapEntr
 
 ## Suggest (saves ~213 gas)
 
-```solidity
-        emit AssetDataSet(
-            _asset,
-            _twap,
-            block.number
-        );
+```diff
+@@ -380,8 +380,8 @@ contract NFTFloorOracle is Initializable, AccessControl, INFTFloorOracle {
+         assetPriceMapEntry.updatedTimestamp = block.timestamp;
+         emit AssetDataSet(
+             _asset,
+-            assetPriceMapEntry.twap,
+-            assetPriceMapEntry.updatedAt
++            _twap,
++            block.number
+         );
+     }
 ```
 
 # [G-02] OPTIMIZE ```_quickSort``` FUNCTION WITH ```unchecked``` blocks
@@ -57,4 +62,20 @@ index b261d57..46958f5 100644
              }
          }
          if (left < j) _quickSort(arr, left, j);
+```
+
+# [G-03] DOUBLE CHECK IN ```removeFeeder``` FOR ```feeder``` EXISTANCE
+
+paraspace-core/contracts/misc/NFTFloorOracle.sol: [169](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L169)
+paraspace-core/contracts/misc/NFTFloorOracle.sol: [328](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L328)
+
+## Suggest 
+
+```diff
+     function removeFeeder(address _feeder)
+         external
+-        onlyWhenFeederExisted(_feeder)
+     {
+         _removeFeeder(_feeder);
+     }
 ```
