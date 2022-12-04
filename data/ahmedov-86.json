@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "ahmedov",
+  "risk": "2",
+  "title": "[M-01] CENTRALIZATION RISK: ADMIN HAVE PRIVILEGES: ADMIN CAN SET NFT FLOOR PRICE FOR AN NFT TO 0",
+  "issueId": 86,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/86"
+}
