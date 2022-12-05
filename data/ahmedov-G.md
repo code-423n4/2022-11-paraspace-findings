@@ -219,3 +219,110 @@ paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol: [149](https://github.c
 paraspace-core/contracts/protocol/pool/PoolApeStaking.sol: [77](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L77), [166](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L166)
 paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol: [169](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L169), [176](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L176), [178](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L178), [185](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L185), [189](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L189), [231](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L231), [233](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L233), [235](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L235), [237](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L237), [238](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L237), [380](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L380), [479](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L479), [496](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L496), [497](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L497)
 paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol: [397](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L397)
+
+# [G-05] USE FUNCTION INSTEAD OF MODIFIERS (2 INSTANCES)
+
+paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol: [45](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol#L45), [59](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol#L59)
+
+```diff
+diff --git a/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol b/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
+index 61438db..faaf3a6 100644
+--- a/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
++++ b/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
+@@ -42,7 +42,7 @@ abstract contract MintableIncentivizedERC721 is
+     /**
+      * @dev Only pool admin can call functions marked by this modifier.
+      **/
+-    modifier onlyPoolAdmin() {
++    function onlyPoolAdmin() private {
+         IACLManager aclManager = IACLManager(
+             _addressesProvider.getACLManager()
+         );
+@@ -50,15 +50,13 @@ abstract contract MintableIncentivizedERC721 is
+             aclManager.isPoolAdmin(msg.sender),
+             Errors.CALLER_NOT_POOL_ADMIN
+         );
+-        _;
+     }
+ 
+     /**
+      * @dev Only pool can call functions marked by this modifier.
+      **/
+-    modifier onlyPool() {
++    function onlyPool() private {
+         require(_msgSender() == address(POOL), Errors.CALLER_MUST_BE_POOL);
+-        _;
+     }
+ 
+     /**
+@@ -128,10 +126,8 @@ abstract contract MintableIncentivizedERC721 is
+      * @notice Sets a new Incentives Controller
+      * @param controller the new Incentives controller
+      **/
+-    function setIncentivesController(IRewardController controller)
+-        external
+-        onlyPoolAdmin
+-    {
++    function setIncentivesController(IRewardController controller) external {
++        onlyPoolAdmin();
+         _ERC721Data.rewardController = controller;
+     }
+ 
+@@ -139,7 +135,8 @@ abstract contract MintableIncentivizedERC721 is
+      * @notice Sets new Balance Limit
+      * @param limit the new Balance Limit
+      **/
+-    function setBalanceLimit(uint64 limit) external onlyPoolAdmin {
++    function setBalanceLimit(uint64 limit) external {
++        onlyPoolAdmin();
+         _ERC721Data.balanceLimit = limit;
+     }
+ 
+@@ -459,7 +456,8 @@ abstract contract MintableIncentivizedERC721 is
+         uint256 tokenId,
+         bool useAsCollateral,
+         address sender
+-    ) external virtual override onlyPool nonReentrant returns (bool) {
++    ) external virtual override nonReentrant returns (bool) {
++        onlyPool();
+         return
+             MintableERC721Logic.executeSetIsUsedAsCollateral(
+                 _ERC721Data,
+@@ -479,13 +477,13 @@ abstract contract MintableIncentivizedERC721 is
+         external
+         virtual
+         override
+-        onlyPool
+         nonReentrant
+         returns (
+             uint256 oldCollateralizedBalance,
+             uint256 newCollateralizedBalance
+         )
+     {
++        onlyPool();
+         oldCollateralizedBalance = _ERC721Data
+             .userState[sender]
+             .collateralizedBalance;
+@@ -530,9 +528,9 @@ abstract contract MintableIncentivizedERC721 is
+         external
+         virtual
+         override
+-        onlyPool
+         nonReentrant
+     {
++        onlyPool();
+         MintableERC721Logic.executeStartAuction(_ERC721Data, POOL, tokenId);
+     }
+ 
+@@ -541,9 +539,9 @@ abstract contract MintableIncentivizedERC721 is
+         external
+         virtual
+         override
+-        onlyPool
+         nonReentrant
+     {
++        onlyPool();
+         MintableERC721Logic.executeEndAuction(_ERC721Data, POOL, tokenId);
+     }
+```
+
