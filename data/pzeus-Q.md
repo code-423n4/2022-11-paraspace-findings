@@ -43,5 +43,6 @@ Declare events and use them at the proper places
 There are missing access modifiers on `public/exernal` methods. In these cases, it can result in exposing customers data or some important protocol variables
 ## Examples
 `PoolParameters.sol` [1](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L226) & [2](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L251)
+`PoolLogic.sol` - [1](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol#L165)
 ## Recommendation
 Use access modifiers in order to restrict who can call the functions
