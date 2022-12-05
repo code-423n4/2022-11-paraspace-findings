@@ -4,6 +4,9 @@ Although, this does not have any impact on the protocol itself, I think this wil
 ## Examples
 Some examples are `SeaportAdapter.sol` and `X2Y2Adapter.sol`
 Also, in a lot of cases, the function behaviour and params explanation are placed inside the interface contracts of the contracts that are implementing those functionalities. This makes the whole process uncomfortable and annoying
+
+There are also examples of no comments on complex math calculations
+[DefaultReserveAuctionStrategy.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/DefaultReserveAuctionStrategy.sol#L90)
 ## Recommendation
 Add missing useful comments where needed
 
