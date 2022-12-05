@@ -31,3 +31,17 @@ There are getters which can be reused inside a contract
 `ParaSpaceOracle.sol` [1](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L214) & [2](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L204)
 ## Recommendation
 Use `getSourceOfAsset()` on every `assetsSources[asset]` occurence inside `ParaSpaceOracle.sol` contract and `getFallbackOracle()` on every `address(_fallbackOracle)` occurrence
+
+## Issue
+There are a lot of places where an event should be emitted in order to point that some action was executed. Since using the events we can consider whether or not something should happen on the front-end or search for an information by event indexed values, there should be emitted events on important protocol actions
+## Examples
+`PoolParameters.sol` [1](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L110), [2](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L139), [3](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L166), [4](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L181), [5](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L196) & [6](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L206)
+## Recommendation
+Declare events and use them at the proper places
+
+## Issue
+There are missing access modifiers on `public/exernal` methods. In these cases, it can result in exposing customers data or some important protocol variables
+## Examples
+`PoolParameters.sol` [1](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L226) & [2](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L251)
+## Recommendation
+Use access modifiers in order to restrict who can call the functions
