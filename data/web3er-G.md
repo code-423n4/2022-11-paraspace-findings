@@ -1,5 +1,4 @@
-## Title
-Redundant modifier onlyWhenFeederExisted Usage
+# Issue1-Redundant modifier onlyWhenFeederExisted Usage
 ## Affected Code
 contracts/misc/NFTFloorOracle.sol 
 ```
@@ -27,6 +26,84 @@ function _removeFeeder(address _feeder)
 }
 ```
 ## Description
-There is no need to call the onlyWhenFeederNotExisted modifier twice to judge whether the feeder exists which will waste gas.
+There is no need to call the `onlyWhenFeederNotExisted` modifier twice to judge whether the feeder exists which will waste gas.
 ## Advice
-It is recommended to remove the modifier onlyWhenFeederExisted of function _removeFeeder.
+It is recommended to remove the modifier `onlyWhenFeederExisted` of function `_removeFeeder`.
+# Issue2-No Need to Explicitly Write the Return Statement
+## Affected Code
+contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+```
+function executeMintMultiple(
+    MintableERC721Data storage erc721Data,
+    bool ATOMIC_PRICING,
+    address to,
+    DataTypes.ERC721SupplyParams[] calldata tokenData
+)
+    external
+    returns (
+        uint64 oldCollateralizedBalance,
+        uint64 newCollateralizedBalance
+    )
+{
+    require(to != address(0), "ERC721: mint to the zero address");
+    uint64 oldBalance = erc721Data.userState[to].balance;
+    oldCollateralizedBalance = erc721Data
+        .userState[to]
+        .collateralizedBalance;
+    uint256 oldTotalSupply = erc721Data.allTokens.length;
+    uint64 collateralizedTokens = 0;
+
+    ......
+
+    newCollateralizedBalance =
+        oldCollateralizedBalance +
+        collateralizedTokens;
+    erc721Data
+        .userState[to]
+        .collateralizedBalance = newCollateralizedBalance;
+
+    ......
+
+    return (oldCollateralizedBalance, newCollateralizedBalance);
+}
+```
+```
+function executeBurnMultiple(
+    MintableERC721Data storage erc721Data,
+    IPool POOL,
+    address user,
+    uint256[] calldata tokenIds
+)
+    external
+    returns (
+        uint64 oldCollateralizedBalance,
+        uint64 newCollateralizedBalance
+    )
+{
+    uint64 burntCollateralizedTokens = 0;
+    uint64 balanceToBurn;
+    uint256 oldTotalSupply = erc721Data.allTokens.length;
+    uint256 oldBalance = erc721Data.userState[user].balance;
+    oldCollateralizedBalance = erc721Data
+        .userState[user]
+        .collateralizedBalance;
+
+    ......
+
+    erc721Data.userState[user].balance -= balanceToBurn;
+    newCollateralizedBalance =
+        oldCollateralizedBalance -
+        burntCollateralizedTokens;
+    erc721Data
+        .userState[user]
+        .collateralizedBalance = newCollateralizedBalance;
+
+    ......
+
+    return (oldCollateralizedBalance, newCollateralizedBalance);
+}
+```
+## Description
+In function `executeMintMultiple` and function `executeBurnMultiple`, the returned variable is specified in the function signature, but the return statement is still explicitly displayed, which will increase gas consumption.
+## Advice
+It is recommended not to explicitly write the return statement when the returned variable is specified in the function signature.
