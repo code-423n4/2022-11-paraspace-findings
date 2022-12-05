@@ -9,6 +9,19 @@ Lines of code:
 - https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/package.json#L31
 
 
+
+# [L-02] Open TODO in the code
+
+There is an open TODO in `LooksRareAdapter.sol` and `UniswapV3OracleWrapper.sol` - this implies changes that might not be audited. Resolve it or remove it.
+
+Lines of code:
+
+- https://github.com/code-423n4/2022-11-paraspace/blob/3e4e2e4e1322482dcdc6d342f8799cd44a3e42f5/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L59
+
+- https://github.com/code-423n4/2022-11-paraspace/blob/3e4e2e4e1322482dcdc6d342f8799cd44a3e42f5/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L238
+
+
+
 # [N-01] The nonReentrant modifier should occur before all other modifiers
 
 This is a best-practice to protect against reentrancy in other modifiers. 
@@ -43,6 +56,7 @@ function withdrawApeCoin(
     {
 
 - https://github.com/code-423n4/2022-11-paraspace/blob/3e4e2e4e1322482dcdc6d342f8799cd44a3e42f5/paraspace-core/contracts/protocol/tokenization/NTokenMAYC.sol#L66
+
 
 
 # [N-02] Constants should be defined rather than using magic numbers
