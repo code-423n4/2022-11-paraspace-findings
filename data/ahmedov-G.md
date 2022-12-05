@@ -225,8 +225,6 @@ paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol: [397](ht
 paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol: [45](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol#L45), [59](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol#L59)
 
 ```diff
-diff --git a/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol b/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
-index 61438db..faaf3a6 100644
 --- a/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
 +++ b/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
 @@ -42,7 +42,7 @@ abstract contract MintableIncentivizedERC721 is
