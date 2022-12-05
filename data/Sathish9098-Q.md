@@ -5,7 +5,7 @@
    
   ####  latest solidity version is 0.8.17 . Use a solidity version of at least 0.8.12 to get string.concat() to be used instead of abi.encodePacked(<str>,<str>)
 
-There are 22 instances of this issue
+There are 27 instances of this issue
 
       pragma solidity 0.8.10;
 
@@ -84,6 +84,28 @@ There are 22 instances of this issue
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/PoolLogic.sol)
 
+
+          File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+           193:    external
+                      returns (
+                      uint64 oldCollateralizedBalance,
+                      uint64 newCollateralizedBalance
+                       )
+
+           266:    external
+                      returns (
+                      uint64 oldCollateralizedBalance,
+                      uint64 newCollateralizedBalance
+                      )
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
+
+
+
+             
+
 ##
 
 ## [L-3]   STRUCT SHOULD BE DECLARED IN THE DECLARATION SECTIONS. IN ValidationLogic.sol FILE STRUCT DECLARED IN CENTER OF THE CONTRACT. THIS IS NOT A GOOD CODE PRACTICE. 
@@ -97,11 +119,23 @@ There are 22 instances of this issue
 
 ##
 
-##   [L-4 ]    CONSTANTS SHOULD BE DEFINED RATHER THAN USING MAGIC NUMBERS
+##   [L-4 ]   It is bad practice to use numbers directly in code without explanation
 
- ####  It is bad practice to use numbers directly in code without explanation
 
-    File:  2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol
+             File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol
+
+            22:   uint256 constant BAYC_POOL_ID = 1;
+
+            23:    uint256 constant MAYC_POOL_ID = 2;
+
+            24:    uint256 constant BAKC_POOL_ID = 3;
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol) 
+
+
+
+         File:  2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol
 
           here length is checked with 2 without any explanations. Why checked the length is set 2 
 
@@ -114,7 +148,7 @@ There are 22 instances of this issue
 
             2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolStorage.sol
 
-        17:     bytes32 constant POOL_STORAGE_POSITION =
+             17:     bytes32 constant POOL_STORAGE_POSITION =
                   bytes32(uint256(keccak256("paraspace.proxy.pool.storage")) - 1);
 
 ##
@@ -137,7 +171,23 @@ There are 22 instances of this issue
                   bytes32(uint256(keccak256("paraspace.proxy.pool.storage")) - 1);
 
 
-##
+##  [L-6]   CONSTANT REDEFINED ELSEWHERE
+
+     ####   Consider defining in only one contract so that values cannot become out of sync when only one location is updated. A cheap way to store constants in a single location is to create an internal constant in a library. If the variable is a local cache of another contract’s value, consider making the cache variable internal or private, which will require external users to query the contract with the source of truth, so that callers don’t get out of sync.
+
+            File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol
+
+            22:   uint256 constant BAYC_POOL_ID = 1;
+
+            23:    uint256 constant MAYC_POOL_ID = 2;
+
+            24:    uint256 constant BAKC_POOL_ID = 3;
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol) 
+
+
+ 
 
 
 
