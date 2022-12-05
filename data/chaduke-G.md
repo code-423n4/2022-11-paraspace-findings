@@ -41,3 +41,12 @@ chanage the line to the following to avoid unnecessary type conversion.
 ```
 proxy = IParaProxy(new ParaProxy(address(this)));
 ```
+G8. https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/pool/PoolStorage.sol#L16
+
+G9: https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/pool/PoolStorage.sol#L16
+The digest can be precomputed so that the constant evaluation will be more gas-saving. 
+
+G10. https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/tokenization/NTokenApeStaking.sol#L23
+The digest can be precomputed so that the constant evaluation will be more gas-saving. 
+
+
