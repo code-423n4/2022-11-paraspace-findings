@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "KingNFT",
+  "risk": "3",
+  "title": "The implementation of ````supportsInterface()```` in MintableIncentivizedERC721.sol is not correct",
+  "issueId": 134,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/134"
+}
