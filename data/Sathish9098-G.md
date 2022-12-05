@@ -137,6 +137,26 @@
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol) 
 
+
+ File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+           111 :  if (from != to && erc721Data.auctions[tokenId].startTime > 0) {
+
+          145:    if (from != to && isUsedAsCollateral_) {
+
+          229:    if (
+                tokenData[index].useAsCollateral &&
+                !erc721Data.isUsedAsCollateral[tokenId]
+            )
+
+
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
+
+
+
+
        
                 
 
@@ -394,7 +414,7 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol)
 
 
-          2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolCore.sol
+          File:  2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolCore.sol
 
 
            634:   for (uint256 i = 0; i < reservesListCount; i++) { 
@@ -402,9 +422,41 @@
            638:    droppedReservesCount++;
 
 
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol) 
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol)
 
 
+       File:  2022-11-paraspace/paraspace-core/contracts/ui/WPunkGateway.sol
+
+             82:       for (uint256 i = 0; i < punkIndexes.length; i++) {
+
+            109:     for (uint256 i = 0; i < punkIndexes.length; i++) {
+
+            113:     for (uint256 i = 0; i < punkIndexes.length; i++) {
+
+            136:     for (uint256 i = 0; i < punkIndexes.length; i++) {
+
+           174:      for (uint256 i = 0; i < punkIndexes.length; i++) {
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/ui/WPunkGateway.sol) 
+
+
+             File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol
+
+             231:       for (uint256 index = 0; index < totalBalance; index++) {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol) 
+
+
+           File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+             207:    for (uint256 index = 0; index < tokenData.length; index++) 
+ 
+             280:    for (uint256 index = 0; index < tokenIds.length; index++) {
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
+       
        
 
           
@@ -540,7 +592,7 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/libraries/logic/MarketplaceLogic.sol) 
 
 
-             2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol
+             File:  2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol
 
                    77:   amountToWithdraw += _nfts[index].amount;
 
@@ -548,6 +600,25 @@
 
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol) 
+
+
+
+                File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol
+
+
+                         215:   totalAmount += getTokenIdStakingAmount(
+                                  poolId,
+                                _apeCoinStaking,
+                                  tokenId
+                                   );
+
+                         257:   apeStakedAmount += bakcStakedAmount;
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol) 
+
+
+         
 
 
             
@@ -655,14 +726,30 @@
 
          2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolMarketplace.sol
 
-         94:   uint16 referralCode
+         94:   uint16 referralCode;
 
-         114:  uint16 referralCode
+         114:  uint16 referralCode;
 
-         135:   uint16 referralCode
+         135:   uint16 referralCode;
 
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolMarketplace.sol) 
+
+
+      File:   2022-11-paraspace/paraspace-core/contracts/ui/WPunkGateway.sol
+
+     
+       80:    uint16 referralCode;
+
+      134:   uint16 referralCode;
+
+     172:    uint16 referralCode
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/ui/WPunkGateway.sol) 
+
+
+        
 
       
     
@@ -681,12 +768,158 @@
             357:     uint64 newCollateralizedBalance
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol) 
+
+      File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+              42 :      uint64 balanceLimit;
+
+              103:     uint64 oldSenderBalance = erc721Data.userState[from].balance;
+
+              105:     uint64 oldRecipientBalance = erc721Data.userState[to].balance;
+        
+               106:    uint64 newRecipientBalance = oldRecipientBalance + 1;
+
+               205:    uint64 collateralizedTokens = 0;
+
+               247:    uint64 newBalance = oldBalance + uint64(tokenData.length);
+
+              272:       uint64 burntCollateralizedTokens = 0;
+        
+               273:      uint64 balanceToBurn;
+
+               405:      uint64 balance;
+
+              408:      uint64 balanceLimit = erc721Data.balanceLimit;
+
+             
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
+
+            
+
+
+
+
+##
+
+## [GAS-12]  Arithmetic operations can be uncheked if we know operands can't be underflow /Overflow 
+
+             File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol
+
+                    185;    uint256 supplyAmount = unstakedAmount - repayAmount; 
+
+                    260:     return apeStakedAmount + apeReward;
+
+                    172:     unstakedAmount = unstakedAmount - incentiveAmount;
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol) 
+
+           File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
+
+##
+
+## [GAS-13]  In the structure instead of uint64,uint64,uint128 we can use uint256 for all variables .  It will saves 13 gas 
+
+
+
+            File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+BEFORE : 
+
+             12:  struct UserState {
+             uint64 balance;
+              uint64 collateralizedBalance;
+             uint128 additionalData;
+              }
+
+Before modification the  gas cost is 77126 as per REMIX IDE
+
+AFTER:
+
+            12:  struct UserState {
+             uint256 balance;
+            uint256 collateralizedBalance;
+            uint256 additionalData;
+            }
+
+ After modification the  gas cost is 77113 as per  REMIX IDE
+
+So clearly possible to save 13 gas after modifications.
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+##
+
+##   [GAS-14]  WE CAN USE ++X/--X  INSTEAD OF [Y]=X+1 OR [Y]=X-1 . LIKE THIS WAY WE CAN SAVE 63 GAS DURING EXECUTION
+
+
+          File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+BEFORE :
+
+          104:  erc721Data.userState[from].balance = oldSenderBalance - 1;
+
+          106:   uint64 newRecipientBalance = oldRecipientBalance + 1;
+
+> BEFORE THE EXECUTION GAS COST IS  21617
+
+AFTER:  
+
+           104:  erc721Data.userState[from].balance = --oldSenderBalance ;
+
+          106:   uint64 newRecipientBalance = ++oldRecipientBalance;
+
+ > AFTER THE EXECUTION GAS COST IS  21554
+
+
+           178:   ? collateralizedBalance + 1
+           
+           179:   : collateralizedBalance - 1;
+
+           523:   uint256 lastTokenIndex = userBalance - 1;
+
+          552:    uint256 lastTokenIndex = length - 1;
+
+          
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
+
+##
+
+## [GAS-15]  WHEN EVER WE NEED TO INCREAMENT OR DECREMENT VALUE BY 1 WE CAN USE ++X/--X INSTEAD OF  [X+=1/X-=1] . IN THIS WAY POSSIBLE TO SAVE 67 GAS FOR EVERY INCREMENT OR DECREMENT OPERATIONS AS PER REMIX GAS REPORTS 
+
+> BEFORE :
+
+X-=1;   THE GAS COST IS 26597
+
+ >  AFTER : 
+
+--X; THE GAS COST IS 26530
+
+
+            File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+
+           146 :  erc721Data.userState[from].collateralizedBalance -= 1;
+
+           318:   erc721Data.userState[user].balance -= balanceToBurn;
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
+
+
+
+
+
+
+
   
 
-2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
+          File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
 
 
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol) 
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 
