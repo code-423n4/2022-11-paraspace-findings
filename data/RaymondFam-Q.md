@@ -1,12 +1,17 @@
 ## Open TODOs
 Open TODOs can point to architecture or programming issues that still need to be resolved. Consider resolving them before deploying.
 
-Here is the instances entailed:
+Here are the instances entailed:
 
 [File: LooksRareAdapter.sol#L59](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L59)
 
 ```
             makerAsk.price, // TODO: take minPercentageToAsk into accoun
+```
+[File: UniswapV3OracleWrapper.sol#L238](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L238)
+
+```
+        // TODO using bit shifting for the 2^96
 ```
 ## Inadequate NatSpec
 Solidity contracts can use a special form of comments, i.e., the Ethereum Natural Language Specification Format (NatSpec) to provide rich documentation for functions, return variables and more. Please visit the following link for further details:
@@ -24,6 +29,8 @@ Here are the contract instances lacking NatSpec mostly in its entirety:
 Here are the contract instances partially lacking NatSpec:
 
 [File: ParaSpaceOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol)
+
+[File: UniswapV3OracleWrapper.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol)
 
 ## No Storage Gap for Upgradeable Contracts
 Consider adding a storage gap at the end of an upgradeable contract, just in case it would entail some child contracts in the future. This would ensure no shifting down of storage in the inheritance chain. 
@@ -98,4 +105,38 @@ In conjunction with this recommendation, the following associated code lines may
 
 300:        uint8 assetIndex = assetFeederMap[_asset].index;
 301:        delete assets[assetIndex];
+```
+## Events Associated With Setter Functions
+Consider having events associated with setter functions emit both the new and old values instead of just the new value.
+
+Here are the instances entailed:
+
+[File: ParaSpaceOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol)
+
+```
+109:     function _setFallbackOracle(address fallbackOracle) internal {
+```
+## Missing Zero Address and Zero Value Checks
+Zero address and zero value checks should be implemented at the constructor to avoid human error(s) that could result in non-functional calls associated with them particularly when the incidents involve immutable variables that could lead to contract redeployment at its worst.
+
+In the instances entailed below, the address arrays may have the sanity checks correspondingly carried out in the for loop of `_setAssetsSources()`:
+
+[File: ParaSpaceOracle.sol#L50-L55](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L50-L55)
+
+```
+        IPoolAddressesProvider provider,
+        address[] memory assets,
+        address[] memory sources,
+        address fallbackOracle,
+        address baseCurrency,
+        uint256 baseCurrencyUnit
+```
+All other instances entailed:
+
+[File: UniswapV3OracleWrapper.sol#L24-L26](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L24-L26)
+
+```
+        address _factory,
+        address _manager,
+        address _addressProvider
 ```
