@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "bullseye",
+  "risk": "3",
+  "title": "Oracle price manipulation risk in ParaSpaceFallbackOracle contract getAssetPrice function",
+  "issueId": 179,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/179"
+}
