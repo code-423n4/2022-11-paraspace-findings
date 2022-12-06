@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "R2",
+  "risk": "2",
+  "title": "Fallback oracle's price may be manuipulated",
+  "issueId": 153,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/153"
+}
