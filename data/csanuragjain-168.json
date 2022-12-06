@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "csanuragjain",
+  "risk": "2",
+  "title": "Missing ACL on removeFeeder function",
+  "issueId": 168,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/168"
+}
