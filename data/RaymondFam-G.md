@@ -65,6 +65,11 @@ Here are the instances entailed:
 
 414:            PriceInformation memory priceInfo = feederRegistrar.feederPrice[
 ```
+[File: ParaSpaceOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol)
+
+```
+196:        uint256[] memory prices = new uint256[](assets.length);
+```
 ## Ternary Over if ... else
 Using ternary operator instead of the if else statement saves gas. 
 
@@ -135,6 +140,23 @@ All other instances entailed:
 354:        returns (bool)
 
 400:        returns (bool, uint256)
+```
+[File: ParaSpaceOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol)
+
+```
+119:        returns (uint256)
+
+142:        returns (uint256)
+
+159:        returns (uint256[] memory)
+
+176:        returns (uint256)
+
+194:        returns (uint256[] memory)
+
+208:        returns (address)
+
+214:    function getFallbackOracle() external view returns (address) {
 ```
 ## Merging and Filtering Off Identical Imports
 In `LooksRareAdapter.sol`, the following two lines of imports originate from the same `ConsiderationStructs.sol`:
@@ -338,6 +360,15 @@ Here are the instances entailed:
 185:        onlyRole(DEFAULT_ADMIN_ROLE)
 
 197:        onlyRole(UPDATER_ROLE)
+```
+[File: ParaSpaceOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol)
+
+```
+69:    ) external override onlyAssetListingOrPoolAdmins {
+
+77:        onlyAssetListingOrPoolAdmins
+
+
 ```
 ## Non-strict inequalities are cheaper than strict ones
 In the EVM, there is no opcode for non-strict inequalities (>=, <=) and two operations are performed (> + = or < + =).
