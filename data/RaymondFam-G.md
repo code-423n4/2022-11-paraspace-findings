@@ -70,6 +70,23 @@ Here are the instances entailed:
 ```
 196:        uint256[] memory prices = new uint256[](assets.length);
 ```
+[File: UniswapV3OracleWrapper.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol)
+
+```
+101:        UinswapV3PositionData memory positionData = getOnchainPositionData(
+
+132:        UinswapV3PositionData memory positionData = getOnchainPositionData(
+
+157:        UinswapV3PositionData memory positionData = getOnchainPositionData(
+
+161:        PairOracleData memory oracleData = _getOracleData(positionData);
+
+191:        uint256[] memory prices = new uint256[](tokenIds.length);
+
+226:        PairOracleData memory oracleData;
+
+294:        FeeParams memory feeParams;
+```
 ## Ternary Over if ... else
 Using ternary operator instead of the if else statement saves gas. 
 
@@ -87,6 +104,15 @@ For instance, the code block below may be refactored as follows:
                 .matchAskWithTakerBidUsingETHAndWETH
                 .selector;
         }
+```
+All other instances entailed:
+
+[File: UniswapV3OracleWrapper.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol)
+
+```
+324:             if (positionData.currentTick >= positionData.tickLower) {
+
+339:            if (positionData.currentTick < positionData.tickUpper) {
 ```
 ## Use of Named Returns for Local Variables Saves Gas
 You can have further advantages in term of gas cost by simply using named return values as temporary local variable.
@@ -157,6 +183,19 @@ All other instances entailed:
 208:        returns (address)
 
 214:    function getFallbackOracle() external view returns (address) {
+```
+[File: UniswapV3OracleWrapper.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol)
+
+```
+54:        returns (UinswapV3PositionData memory)
+
+156:    function getTokenPrice(uint256 tokenId) public view returns (uint256) {
+
+189:        returns (uint256[] memory)
+
+206:        returns (uint256)
+
+224:        returns (PairOracleData memory)
 ```
 ## Merging and Filtering Off Identical Imports
 In `LooksRareAdapter.sol`, the following two lines of imports originate from the same `ConsiderationStructs.sol`:
@@ -380,6 +419,13 @@ As an example, consider replacing `>=` with the strict counterpart `>` in the fo
 ```
         if (priceDeviation > config.maxPriceDeviation - 1) {
 ```
+All other instances entailed:
+
+[File: UniswapV3OracleWrapper.sol#L324](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L324)
+
+```
+            if (positionData.currentTick >= positionData.tickLower) {
+```
 Similarly, as an example, consider replacing `<=` with the strict counterpart `<` in the following inequality instance:
 
 [File: NFTFloorOracle.sol#L244](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L244)
@@ -421,4 +467,32 @@ All other instances enailed:
 
 442:            while (arr[uint256(i)] < pivot) i++;
 443:            while (pivot < arr[uint256(j)]) j--;
+```
+[File: ParaSpaceOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol)
+
+```
+95:        for (uint256 i = 0; i < assets.length; i++) {
+```
+[File: UniswapV3OracleWrapper.sol#L324](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L324)
+
+```
+193:        for (uint256 index = 0; index < tokenIds.length; index++) {
+
+210:        for (uint256 index = 0; index < tokenIds.length; index++) {
+```
+## += and -= Costs More Gas
+`+=` generally costs 22 more gas than writing out the assigned equation explicitly. The amount of gas wasted can be quite sizable when repeatedly operated in a loop. As an example, the following line of code could be rewritten as:
+
+[File: UniswapV3OracleWrapper.sol#L211](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L211)
+
+```
+            sum = sum + getTokenPrice(tokenIds[index]);
+```
+All other instances entailed:
+
+[File: UniswapV3OracleWrapper.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol)
+
+```
+        token0Amount += positionData.tokensOwed0;
+        token1Amount += positionData.tokensOwed1;
 ```
