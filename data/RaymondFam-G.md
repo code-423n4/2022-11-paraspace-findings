@@ -87,6 +87,11 @@ Here are the instances entailed:
 
 294:        FeeParams memory feeParams;
 ```
+[File: PoolAddressesProvider.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol)
+
+```
+        DataTypes.Marketplace memory marketplace = _marketplaces[id];
+```
 ## Ternary Over if ... else
 Using ternary operator instead of the if else statement saves gas. 
 
@@ -113,6 +118,17 @@ All other instances entailed:
 324:             if (positionData.currentTick >= positionData.tickLower) {
 
 339:            if (positionData.currentTick < positionData.tickUpper) {
+```
+[File: PoolAddressesProvider.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol)
+
+```
+213:        if (
+
+276:        if (proxyAddress == address(0)) {
+
+312:        if (proxyAddress == address(0)) {
+
+344:        if (proxyAddress == address(0)) {
 ```
 ## Use of Named Returns for Local Variables Saves Gas
 You can have further advantages in term of gas cost by simply using named return values as temporary local variable.
@@ -294,6 +310,13 @@ Here are the instances entailed:
 73:            advancedOrders.length == 2 &&
 74:                isBasicOrder(advancedOrders[0]) &&
 ```
+[File: MarketplaceLogic.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol)
+
+```
+172:            marketplaceIds.length == payloads.length &&
+
+280:            marketplaceIds.length == payloads.length &&
+```
 ## || Costs Less Gas Than Its Equivalent &&
 Rule of thumb: (x && y) is (!(!x || !y))
 
@@ -305,6 +328,13 @@ As an example, the code block below may be refactored as follows:
 
 ```
         if (!(price != 0 || address(_fallbackOracle) == address(0))) {
+```
+All other instances entailed:
+
+[File: PoolAddressesProvider.sol]https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol)
+
+```
+214:            marketplace.marketplace != address(0) &&
 ```
 ## Private Function Embedded Modifier Reduces Contract Size
 Consider having the logic of a modifier embedded through a private function to reduce contract size if need be. A private visibility that saves more gas on function calls than the internal visibility is adopted because the modifier will only be making this call inside the contract.
@@ -406,8 +436,6 @@ Here are the instances entailed:
 69:    ) external override onlyAssetListingOrPoolAdmins {
 
 77:        onlyAssetListingOrPoolAdmins
-
-
 ```
 ## Non-strict inequalities are cheaper than strict ones
 In the EVM, there is no opcode for non-strict inequalities (>=, <=) and two operations are performed (> + = or < + =).
