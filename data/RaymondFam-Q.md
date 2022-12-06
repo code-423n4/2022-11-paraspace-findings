@@ -13,6 +13,11 @@ Here are the instances entailed:
 ```
         // TODO using bit shifting for the 2^96
 ```
+[File: MarketplaceLogic.sol#L442](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L442)
+
+```
+        // TODO: support PToken
+```
 ## Inadequate NatSpec
 Solidity contracts can use a special form of comments, i.e., the Ethereum Natural Language Specification Format (NatSpec) to provide rich documentation for functions, return variables and more. Please visit the following link for further details:
 
@@ -139,4 +144,36 @@ All other instances entailed:
         address _factory,
         address _manager,
         address _addressProvider
+```
+## Two-step Transfer of Ownership
+In `PoolAddressesProvider.sol`, the contract inherits from `Ownable.sol` where `transferOwnership()` is invoked at the constructor allowing the deployer to transfer ownership to the owner specified in the constructor parameter. This function checks the new owner is not the zero address and proceeds to write the new owner's address into the owner's state variable. If the nominated EOA account is not a valid account, it is entirely possible the contract deployer may accidentally transfer ownership to an uncontrolled account, breaking all functions with the onlyOwner() modifier. 
+
+Consider implementing a two step process where the deployer nominates an account and the nominated account needs to call an acceptOwnership() function for the transfer of ownership to fully succeed.  This will ensure the new owner is going to be fully aware of the ownership assigned/transferred other than having the above mistake avoided.
+
+## Typo Mistakes
+[File: AuctionLogic.sol#L34](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/AuctionLogic.sol#L34)
+
+```
+    @ tsatr
+     * @notice Function to tsatr auction on an ERC721 of a position if its ERC721 Health Factor drops below 1.
+```
+## Lines Too Long
+Lines in source code are typically limited to 80 characters, but it’s reasonable to stretch beyond this limit when need be as monitor screens theses days are comparatively larger. Considering the files will most likely reside in GitHub that will have a scroll bar automatically kick in when the length is over 164 characters, all code lines and comments should be split when/before hitting this length. Keep line width to max 120 characters for better readability where possible. 
+
+Here are the instances entailed:
+
+[File: LiquidationLogic.sol#L603](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/LiquidationLogic.sol#L603)
+
+## Use `delete` to Clear Variables
+`delete a` assigns the initial value for the type to `a`. i.e. for integers it is equivalent to `a = 0`, but it can also be used on arrays, where it assigns a dynamic array of length zero or a static array of the same length with all elements reset. For structs, it assigns a struct with all members reset. Similarly, it can also be used to set an address to zero address. It has no effect on whole mappings though (as the keys of mappings may be arbitrary and are generally unknown). However, individual keys and what they map to can be deleted: If `a` is a mapping, then `delete a[x]` will delete the value stored at x.
+
+The delete key better conveys the intention and is also more idiomatic. 
+
+Here are the instances entailed:
+
+[File: MarketplaceLogic.sol#L409-L410](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L409-L410)
+
+```
+            price = 0;
+            downpayment = 0;
 ```
