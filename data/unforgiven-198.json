@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "3",
+  "title": "contract MintableIncentivizedERC721 doesn't properly implement ERC721 standard because it doesn't check that contract recipients are aware of the ERC721 protocol to prevent tokens from being forever locked.",
+  "issueId": 198,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/198"
+}
