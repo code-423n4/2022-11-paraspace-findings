@@ -145,6 +145,16 @@ All other instances entailed:
         address _manager,
         address _addressProvider
 ```
+[File: DefaultReserveAuctionStrategy.sol#L51-L56](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/DefaultReserveAuctionStrategy.sol#L51-L56)
+
+```
+        uint256 maxPriceMultiplier,
+        uint256 minExpPriceMultiplier,
+        uint256 minPriceMultiplier,
+        uint256 stepLinear,
+        uint256 stepExp,
+        uint256 tickLength
+```
 ## Two-step Transfer of Ownership
 In `PoolAddressesProvider.sol`, the contract inherits from `Ownable.sol` where `transferOwnership()` is invoked at the constructor allowing the deployer to transfer ownership to the owner specified in the constructor parameter. This function checks the new owner is not the zero address and proceeds to write the new owner's address into the owner's state variable. If the nominated EOA account is not a valid account, it is entirely possible the contract deployer may accidentally transfer ownership to an uncontrolled account, breaking all functions with the onlyOwner() modifier. 
 
@@ -176,4 +186,34 @@ Here are the instances entailed:
 ```
             price = 0;
             downpayment = 0;
+```
+## Use of `ecrecover` is Susceptible to Signature Malleability
+The built-in EVM pre-compiled `ecrecover` is susceptible to signature malleability due to non-unique v and s (which may not always be in the lower half of the modulo set) values, possibly leading to replay attacks. Despite not exploitable in the current implementation with the adoption of nonces, this could prove a vulnerability when not carefully used elsewhere.
+
+Consider using OpenZeppelin’s ECDSA library which has been time tested in preventing this malleability where possible.
+
+Here is the instance entailed:
+
+[File: ValidationLogic.sol#L1100-L1107](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L1100-L1107)
+
+```
+            SignatureChecker.verify(
+                hashCredit(credit),
+                signer,
+                v,
+                r,
+                s,
+                getDomainSeparator()
+            );
+```
+[File: SignatureChecker.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/dependencies/looksrare/contracts/libraries/SignatureChecker.sol)
+
+```
+19:    function recover(
+            ...
+35:        address signer = ecrecover(hash, v, r, s);
+            ...
+51:    function verify(
+            ...
+66:            return recover(digest, v, r, s) == signer;
 ```
