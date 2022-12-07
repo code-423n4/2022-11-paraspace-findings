@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "3",
+  "title": "function _removeFeeder() in NFTFloorOracle removes feeder improperly and doesn't update feederPositionMap for changed feeders so the contract would be in wrong state and feeders can't be removed",
+  "issueId": 187,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/187"
+}
