@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "hihen",
+  "risk": "2",
+  "title": "Underlying asset of NToken may be drained by executeAirdrop()",
+  "issueId": 199,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/199"
+}
