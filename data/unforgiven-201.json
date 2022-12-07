@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "2",
+  "title": "Contract NTokenMoonBirds won't receive airdrops because function onERC721Received() only accept calls from underlyingAsset but other NTokens can receive air drops",
+  "issueId": 201,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/201"
+}
