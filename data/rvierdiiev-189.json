@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "rvierdiiev",
+  "risk": "2",
+  "title": "PToken is upgradeable, but not all his parents have gap",
+  "issueId": 189,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/189"
+}
