@@ -82,20 +82,6 @@ In `NFTFloorOracle.sol`, the modifier, `onlyRole(DEFAULT_ADMIN_ROLE)`, has not b
 
 Consider moving [line 336](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L336), `revokeRole(UPDATER_ROLE, _feeder);`, to the beginning line of the function code block so that it would revert as early as possible whenever `removeFeeder()`, an external function, was invoked by a non-Admin.
 
-## Use of Deprecated `_setupRole()`
-Avoid using `_setupRole()` which is deprecated in favor of `_grantRole()` as documented in [Openzeppelin's documentation](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/AccessControl.sol#L203) although this particular part of the NatSpec has been omitted in [Paraspace's AccessControl.sol#L196-L211](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/dependencies/openzeppelin/contracts/AccessControl.sol#L196-L211).
-
-Here are the instances entailed:
-
-[File: NFTFloorOracle.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
-
-```
-104:         _setupRole(DEFAULT_ADMIN_ROLE, _admin);
-
-106:        _setupRole(UPDATER_ROLE, _admin);
-
-314:        _setupRole(UPDATER_ROLE, _feeder);
-```
 ## Unneeded State Variable
 In `NFTFloorOracle.sol`, a public state array, `assets`, has been declared to house all NFT contracts. Unlike its counterpart, `feeders`, no array trimming is implemented like it is seen in [lines 332 - 333](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L332-L333). Simply deleting it on [line 301](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L301) turns the element to zero address by leaving a hole in the array, which would not be conducive if the ever growing `assets` were to be looked up. But since it is not practically referenced within or without the contract, e.g. in a for loop like `feeders` is, it may be deemed obsolete. If need be, the asset can be more meaningfully retrieved via the associated mappings, `assetPriceMap` and `assetFeederMap`.
 
@@ -145,16 +131,6 @@ All other instances entailed:
         address _manager,
         address _addressProvider
 ```
-[File: DefaultReserveAuctionStrategy.sol#L51-L56](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/DefaultReserveAuctionStrategy.sol#L51-L56)
-
-```
-        uint256 maxPriceMultiplier,
-        uint256 minExpPriceMultiplier,
-        uint256 minPriceMultiplier,
-        uint256 stepLinear,
-        uint256 stepExp,
-        uint256 tickLength
-```
 ## Two-step Transfer of Ownership
 In `PoolAddressesProvider.sol`, the contract inherits from `Ownable.sol` where `transferOwnership()` is invoked at the constructor allowing the deployer to transfer ownership to the owner specified in the constructor parameter. This function checks the new owner is not the zero address and proceeds to write the new owner's address into the owner's state variable. If the nominated EOA account is not a valid account, it is entirely possible the contract deployer may accidentally transfer ownership to an uncontrolled account, breaking all functions with the onlyOwner() modifier. 
 
@@ -186,34 +162,4 @@ Here are the instances entailed:
 ```
             price = 0;
             downpayment = 0;
-```
-## Use of `ecrecover` is Susceptible to Signature Malleability
-The built-in EVM pre-compiled `ecrecover` is susceptible to signature malleability due to non-unique v and s (which may not always be in the lower half of the modulo set) values, possibly leading to replay attacks. Despite not exploitable in the current implementation with the adoption of nonces, this could prove a vulnerability when not carefully used elsewhere.
-
-Consider using OpenZeppelin’s ECDSA library which has been time tested in preventing this malleability where possible.
-
-Here is the instance entailed:
-
-[File: ValidationLogic.sol#L1100-L1107](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L1100-L1107)
-
-```
-            SignatureChecker.verify(
-                hashCredit(credit),
-                signer,
-                v,
-                r,
-                s,
-                getDomainSeparator()
-            );
-```
-[File: SignatureChecker.sol](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/dependencies/looksrare/contracts/libraries/SignatureChecker.sol)
-
-```
-19:    function recover(
-            ...
-35:        address signer = ecrecover(hash, v, r, s);
-            ...
-51:    function verify(
-            ...
-66:            return recover(digest, v, r, s) == signer;
 ```
