@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "9svR6w",
+  "risk": "2",
+  "title": "NFTFloorOracle removeFeeder() can corrupt feeder recordkeeping storage, resulting in ability for single feeder to determine an arbitrary median price (also DOS some further calls to removeFeeder() and continued use of prices from removed feeders)",
+  "issueId": 197,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/197"
+}
