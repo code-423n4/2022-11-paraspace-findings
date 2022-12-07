@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "3",
+  "title": "removeFeeder() in NFTFloorOracle doesn't have proper access control, anyone can remove feeders and cause protocol to be not functional and users would lose funds",
+  "issueId": 186,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/186"
+}
