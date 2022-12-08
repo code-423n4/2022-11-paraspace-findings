@@ -5,7 +5,7 @@
    
   ####  latest solidity version is 0.8.17 . Use a solidity version of at least 0.8.12 to get string.concat() to be used instead of abi.encodePacked(<str>,<str>)
 
-There are 27 instances of this issue
+There are 40 instances of this issue
 
       pragma solidity 0.8.10;
 
@@ -192,19 +192,4 @@ There are 27 instances of this issue
 
 
 
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-NC-1	Missing checks for address(0) when assigning values to address state variables	4
-NC-2	Return values of approve() not checked	3
-NC-3	Event is missing indexed fields	8
-NC-4	Constants should be defined rather than using magic numbers	2
-NC-5	Functions not used internally could be marked external	4
-
-
-L-1	abi.encodePacked() should not be used with dynamic types when passing the result to a hash function such as keccak256()	3
-L-2	Do not use deprecated library functions	4
-L-3	Unsafe ERC20 operation(s)
-        
 
