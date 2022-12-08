@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Insufficient sanity check when using fallback price from bendDAO for ERC721 NFT in ParaSpaceFallbackOracle",
+  "issueId": 241,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/241"
+}
