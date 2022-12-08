@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "pwnforce",
+  "risk": "3",
+  "title": "``repay``` function in PoolCore contract acts incorrectly when ```msg.value > paybackAmount```",
+  "issueId": 247,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/247"
+}
