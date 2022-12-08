@@ -153,7 +153,7 @@ https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contrac
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L77
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L83
 
-7. Use function only instead of modifier to save gas :-
+8. Use function only instead of modifier to save gas :-
 
 Modefiers :-     
 modifier onlyPoolConfigurator() 
@@ -195,7 +195,7 @@ https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contrac
 Reference :-
 https://code4rena.com/reports/2022-09-frax/#g-02-use-function-instead-of-modifiers-4-instances
 
-8.Mark functions as payable when users can't mistakenly send ETH:-
+9.Mark functions as payable when users can't mistakenly send ETH:-
 Functions marked as payable are 24 gas cheaper than their counterpart (in non-payable functions, Solidity adds an extra check to ensure msg.value is zero).
 When users can't mistakenly send ETH to a function (as an example, when there's an onlyOwner modifier or alike), it is safe to mark it as payable.
 
@@ -209,7 +209,7 @@ Mark as payable the functions that have a "safe for users" modifier
 Reference:-
 https://github.com/code-423n4/2022-01-trader-joe-findings/issues/132
 
-9.Declare local variable in returns only to save gas :-
+10.Declare local variable in returns only to save gas :-
 
 code snippet:-
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol#L222
