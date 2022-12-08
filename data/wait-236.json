@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "wait",
+  "risk": "2",
+  "title": "Function NToken.rescueERC20 and NToken.rescueERC1155 may be called to steal underlying assets",
+  "issueId": 236,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/236"
+}
