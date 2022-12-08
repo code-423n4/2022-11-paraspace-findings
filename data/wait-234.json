@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "wait",
+  "risk": "3",
+  "title": "Function NToken.executeAirdrop can be called to drain all underlying assets",
+  "issueId": 234,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/234"
+}
