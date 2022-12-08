@@ -2,6 +2,25 @@
 
 ##   [GAS -1]    instead of using operator && on single require or if checks . Using Multiple REQUIRE or IF checks can save more gas. 
 
+As remix gas reports we can save 8 gas if we use multiple checks.
+
+BEFORE:
+
+SAMPLE TEST:
+
+require(1==1&&2==2);
+
+Using && operator the execution gas cost is 21240
+
+AFTER : 
+
+require(1==1);
+require(2==2);
+
+After modification the execution cost is   21232 . So clearly we can save 8 gas par split condition checks.
+
+> There is 24 instance of this issue: 
+
 
           2022-11-paraspace/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol
 
@@ -53,7 +72,7 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/LiquidationLogic.sol) 
 
 
-  2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
+               2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
 
               171:   require(
                     marketplaceIds.length == payloads.length &&
@@ -84,7 +103,7 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol) 
 
 
-2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol
+            2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol
 
 
              546:  require(
@@ -138,7 +157,7 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolParameters.sol) 
 
 
- File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
+           File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
 
            111 :  if (from != to && erc721Data.auctions[tokenId].startTime > 0) {
 
@@ -155,32 +174,24 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
 
 
-
-
-       
-                
-
-
 ##
 
 ##  [GAS-2]  Use uint256 instead of uint8 . uint8 Can Increase Gas Cost. Possible to save 6 gas as per Remix IDE gas reports
 
   ####  A smart contract's gas consumption can be higher if developers use items that are less than 32 bytes in size because the Ethereum Virtual Machine can only handle 32 bytes at a time. In order to increase the element's size to the necessary size, the EVM has to perform additional operations. 
 
+> There is 3 instance of this issue:
+
         File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
 
        9:    uint8 constant MIN_ORACLES_NUM = 3;
-
-      12:   uint128 constant EXPIRATION_PERIOD = 1800;   //21505 uint128,uint128 Execution cost   // 21493   uint256,uint256 Execution cost 
-
-      14:   uint128 constant MAX_DEVIATION_RATE = 150;  //21505 uint128,uint128 Execution cost   // 21493   uint256,uint256 Execution cost 
 
       330:  uint8 feederIndex = feederPositionMap[_feeder].index;  
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol)
 
 
-2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol
+       2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol
 
 
         function verifyCreditSignature(
@@ -193,8 +204,6 @@
 
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol) 
-
-        
 
 ##
 
@@ -212,7 +221,10 @@
 
 ##   [GAS-4]   FUNCTIONS GUARANTEED TO REVERT WHEN CALLED BY NORMAL USERS CAN BE MARKED PAYABLE
 
+
 ####    If a function modifier such as onlyOwner,onlyRole is used, the function will revert if a normal user tries to pay the function. Marking the function as payable will lower the gas cost for legitimate callers because the compiler will not include checks for whether a payment was provided. The extra opcodes avoided are CALLVALUE(2),DUP1(3),ISZERO(3),PUSH2(3),JUMPI(10),PUSH1(3),DUP1(3),REVERT(0),JUMPDEST(1),POP(2), which costs an average of about 21 gas per call to the function, in addition to the extra deployment cost.
+
+> There is 11 instance of this issue:
 
         File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
 
@@ -278,8 +290,6 @@
     ) external override onlyOwner {
 
       
-
-
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspacecore/contracts/protocol/configuration/PoolAddressesProvider.sol)
 
 ##
@@ -287,6 +297,8 @@
 ## [GAS-5]  ++I/I++ OR --I/I-- SHOULD BE UNCHECKED{++I}/UNCHECKED{I++} OR  UNCHECKED{--I}/UNCHECKED{I--}WHEN IT IS NOT POSSIBLE FOR THEM TO OVERFLOW, AS IS THE CASE WHEN USED IN FOR- AND WHILE-LOOPS
 
      ####   The unchecked keyword is new in solidity version 0.8.0, so this only applies to that version or higher, which these instances are. This saves 30-40 gas per loop
+
+> There is 49 instance of this issue:
 
            File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
 
@@ -308,7 +320,7 @@
                
          450:       j--;
 
-       [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol) 
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol) 
 
 
         File:  2022-11-paraspace/paraspace-core/contracts/misc/ParaSpaceOracle.sol
@@ -456,19 +468,27 @@
 
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
-       
-       
 
-          
+                 2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/NTokenMoonBirds.sol
+
+                  51 :     for (uint256 index = 0; index < tokenIds.length; index++) {
+
+                  97:     for (uint256 index = 0; index < tokenIds.length; index++) {
 
 
-        
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NTokenMoonBirds.sol) 
 
-     
+
+               File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/NTokenApeStaking.sol
+
+               107:    for (uint256 index = 0; index < tokenIds.length; index++) {
 
 ##
 
 ##   [GAS -6] Use uint256 instead of uint128 in Function parameters . So Possible to save 16 gas for every variables and function calls as per remix gas report. 
+
+
+> There is 5 instance of this issue:
 
                     File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
 
@@ -478,8 +498,6 @@
 
 
  [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol) 
-
-
 
               2022-11-paraspace/paraspace-core/contracts/protocol/pool/PoolCore.sol
 
@@ -497,17 +515,23 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol) 
 
 
-               
+                  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/NTokenUniswapV3.sol
+
+                       54:    uint128 liquidityDecrease,
+
+                       126:   uint128 liquidityDecrease,
 
 
-
-
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NTokenUniswapV3.sol) 
 
 
 ##
 
 
-##   [GAS-7]    For || operator checks we don't want to check all conditions. As per || results any one condition true over all condition checks become true. If any one condition is true then other condition checks are waste of computing power and gas . So its better we can avoid condition checks after true 
+##   [GAS-7]    For || operator checks we don't want to check all conditions. As per || results any one condition true over all condition checks become true. If any one condition is true then other condition checks are waste of computing power and gas . So its better we can avoid condition checks after true . Its possible to save 30-40 gas every skipped conditions .
+
+>  There is 2 instance of this issue:
+
 
                File: 2022-11-paraspace/paraspace-core/contracts/misc/NFTFloorOracle.sol
 
@@ -528,6 +552,8 @@
 ##
 
 ##   [GAS - 8]  <X> += <Y> COSTS MORE GAS THAN <X> = <X> + <Y> FOR STATE VARIABLES . FOR EVERY CALL CAN SAVE 13 GAS 
+
+>  There is 20 instance of this issue:
 
           File: 2022-11-paraspace/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol
 
@@ -580,9 +606,6 @@
                              tmpLiquidationThreshold *
                              tokenPrice;
 
-            
-
-          
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol) 
 
                2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol    
@@ -618,14 +641,11 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol) 
 
 
-         
-
-
-            
-
 ##
 
 ##  [GAS - 9] We can use bytes32 instead of string for fixed length inputs
+
+>  There is 1 instance of this issue:
 
           File:  2022-11-paraspace/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol
 
@@ -633,8 +653,10 @@
 
 ##
 
-##[GAS-10]   Use uint256 instead of uint16 in Function parameters AND varibales . So Possible to save 16 gas for every variables and function calls as per remix gas report. 
+##    [GAS-10]   Use uint256 instead of uint16 in Function parameters AND varibales . So Possible to save 16 gas for every variables and function calls as per remix gas report. 
 
+
+>  There is 15 instance of this issue:
 
         2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
 
@@ -749,15 +771,13 @@
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/ui/WPunkGateway.sol) 
 
 
-        
-
-      
-    
 ##
 
 ##    [GAS-11]    Use uint256 instead of uint64  . Can save more gas 
 
-2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol
+>  There is 15 instance of this issue:
+
+           2022-11-paraspace/paraspace-core/contracts/protocol/libraries/logic/SupplyLogic.sol
         
            144:    uint64 oldCollateralizedBalance,
 
@@ -796,14 +816,11 @@
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
 
-            
-
-
-
-
 ##
 
-## [GAS-12]  Arithmetic operations can be uncheked if we know operands can't be underflow /Overflow 
+##  [GAS-12]  Arithmetic operations can be uncheked if we know operands can't be underflow /Overflow 
+
+>  There is 3 instance of this issue:
 
              File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol
 
@@ -814,10 +831,6 @@
                     172:     unstakedAmount = unstakedAmount - incentiveAmount;
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol) 
-
-           File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
-
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
 
 ##
 
@@ -855,6 +868,8 @@ So clearly possible to save 13 gas after modifications.
 
 ##   [GAS-14]  WE CAN USE ++X/--X  INSTEAD OF [Y]=X+1 OR [Y]=X-1 . LIKE THIS WAY WE CAN SAVE 63 GAS DURING EXECUTION
 
+
+>  There is 6 instance of this issue:
 
           File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
 
@@ -898,6 +913,8 @@ X-=1;   THE GAS COST IS 26597
 
 --X; THE GAS COST IS 26530
 
+>  There is 2 instance of this issue:
+
 
             File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
 
@@ -908,6 +925,34 @@ X-=1;   THE GAS COST IS 26597
 
 [Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
 
+##
+
+##  [GAS-16]   USE FUNCTION INSTEAD OF MODIFIERS  . 
+
+>  There is 2 instance of this issue:
+
+
+        2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol
+
+              45:  modifier onlyPoolAdmin() {
+             IACLManager aclManager = IACLManager(
+            _addressesProvider.getACLManager()
+              );
+               require(
+            aclManager.isPoolAdmin(msg.sender),
+            Errors.CALLER_NOT_POOL_ADMIN
+              );
+                _;
+                  }
+
+
+           59:  modifier onlyPool() {
+            require(_msgSender() == address(POOL), Errors.CALLER_MUST_BE_POOL);
+            _;
+            }
+
+
+[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol) 
 
 
 
@@ -915,23 +960,3 @@ X-=1;   THE GAS COST IS 26597
 
 
   
-
-          File:  2022-11-paraspace/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol
-
-
-[Link To Code](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol) 
-
--------------------------------------------------------------------------------------------------------------------------------------------------------
-
-GAS-1	Use assembly to check for address(0)	40
-GAS-2	Using bools for storage incurs overhead	3
-GAS-3	Cache array length outside of loop	45
-GAS-4	State variables should be cached in stack variables rather than re-reading them from storage	4
-GAS-5	Use calldata instead of memory for function arguments that do not get mutated	39
-GAS-6	Use Custom Errors	16
-GAS-7	Don't initialize variables with default value	59
-GAS-8	++i costs less gas than i++, especially when it's used in for-loops (--i/i-- too)	58
-GAS-9	Using private rather than public for constants, saves gas	8
-GAS-10	Use shift Right/Left instead of division/multiplication if possible	2
-GAS-11	Use != 0 instead of > 0 for unsigned integer comparison	23
-GAS-12	internal functions not called by the contract should be removed	24
