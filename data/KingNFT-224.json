@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "KingNFT",
+  "risk": "3",
+  "title": "Attacker can call ````supplyPunk()```` to steal punks by front running",
+  "issueId": 224,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/224"
+}
