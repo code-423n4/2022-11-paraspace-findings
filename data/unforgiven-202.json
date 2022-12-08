@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "2",
+  "title": "broken logics in WPunkGateway contract because supply functions should be declared as payable so they could receive user ETH and then send those ETH to Punk.buyPunk() to buy punks",
+  "issueId": 202,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/202"
+}
