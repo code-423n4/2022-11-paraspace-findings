@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "HE1M",
+  "risk": "2",
+  "title": "Wrong usage of `safeTransferFrom` instead of `safeTransfer`",
+  "issueId": 214,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/214"
+}
