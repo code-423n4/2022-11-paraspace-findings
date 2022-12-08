@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "poirots",
+  "risk": "3",
+  "title": "Incoherence between two branches on UniswapV3OracleWrapper",
+  "issueId": 237,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/237"
+}
