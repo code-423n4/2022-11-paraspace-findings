@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "carlitox477",
+  "risk": "2",
+  "title": "# NFTFloorOracle: setPrice has serious centralization issued that can lead to user nft lost, or protocol drain of funds due to lack of check of constraints established in documentation and code, and also reinitialize the NFT oracle",
+  "issueId": 251,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/251"
+}
