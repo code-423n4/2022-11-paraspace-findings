@@ -71,7 +71,7 @@ https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contrac
 
 And All scoped contract is having this same .
 
-6. Instead of struct declare as a state variable  :-
+6. Instead of struct ,declare as a state variable  :-
 One item in struct is not efficient than one state variable 
 
 code snippet:-
