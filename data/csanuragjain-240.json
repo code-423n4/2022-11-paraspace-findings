@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "csanuragjain",
+  "risk": "2",
+  "title": "Borrow Debt is not accrued if Reserve Factor is set to 100%",
+  "issueId": 240,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/240"
+}
