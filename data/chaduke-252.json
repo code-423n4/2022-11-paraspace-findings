@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "chaduke",
+  "risk": "3",
+  "title": "An attacker might frontrun the initialize function and set wrong amdin, _feeders, and _assets",
+  "issueId": 252,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/252"
+}
