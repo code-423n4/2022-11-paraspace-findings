@@ -13,4 +13,5 @@ QA4:https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955
 The comparison to ADDRESSES_PROVIDER might be wrong since ``ADDRESSES_PROVIDER`` is not the same state variable that is initialized in the constructor. When ``initialize`` is called, ``ADDRESSES_PROVIDER`` will refer to the storage slot in the calling context (the caller) that corresponds to the same slot number as ``ADDRESSES_PROVIDER``, which could create a storage collision issue for delegate call (https://blog.finxter.com/delegatecall-or-storage-collision-attack-on-smart-contracts/). 
 Mitigation: define ADDRESSES_PROVIDER as a constant
 
-
+QA5: https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/ParaSpaceOracle.sol#L57-L59
+Zero address check is needed for these arguments of the constructor. 
