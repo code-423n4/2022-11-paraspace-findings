@@ -1,0 +1,2 @@
+### Doubling modifiers
+The modifier `onlyWhenFeederExisted` is used in `removeFeeder(...)` and `_removeFeeder(...)` even though first function calls the second. The same situation happen for modifier `onlyWhenAssetExisted` in functions `removeAsset(...)` and `_removeAsset(...)`. Double usage of modifiers may consume substantial amount of gas, since both of those modifiers access data from storage.
