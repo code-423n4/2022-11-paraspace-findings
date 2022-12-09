@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "3",
+  "title": "suppliers funds loss because attacker can transfer his collateralized tokens when health factor is below liquidation threshold by reentrancy attack during executeLiquidateERC20() logic and transferring collateralize ",
+  "issueId": 462,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/462"
+}
