@@ -2,7 +2,7 @@
 
 Risk Rating | Number of issues
 --- | ---
-Gas Issues | 9
+Gas Issues | 10
 
 **Codebase Impressions**
 
@@ -19,10 +19,11 @@ In the future, I'd suggest paying more attention to what happens in loops as the
 - [3. (168 fixed gas + 84 gas per iteration) - Multiple accesses of a mapping/array should use a local variable cache](#3-168-fixed-gas--84-gas-per-iteration---multiple-accesses-of-a-mappingarray-should-use-a-local-variable-cache)
 - [4. (25 gas per iteration) - Unchecking arithmetics operations that can't underflow/overflow](#4-25-gas-per-iteration---unchecking-arithmetics-operations-that-cant-underflowoverflow)
 - [5. (33 gas per iteration) - Usage of `uint16` incurs overhead in for-loop](#5-33-gas-per-iteration---usage-of-uint16-incurs-overhead-in-for-loop)
-- [6. (100 gas) - Missed by C4udit: State variables should be cached in stack variables rather than re-reading them from storage](#6-100-gas---missed-by-c4udit-state-variables-should-be-cached-in-stack-variables-rather-than-re-reading-them-from-storage)
+- [6. (226 gas) `<x> += <y>` costs more gas than `<x> = <x> + <y>` for state variables](#6-226-gas-x--y-costs-more-gas-than-x--x--y-for-state-variables)
 - [7. (300 gas) - Avoid emitting a storage variable when a memory value is available](#7-300-gas---avoid-emitting-a-storage-variable-when-a-memory-value-is-available)
 - [8. (Slot packing) - Proposal: reduce the size of some variables in structs](#8-slot-packing---proposal-reduce-the-size-of-some-variables-in-structs)
-- [9. (Should be in C4udit) - Reduce the size of error messages (Long revert Strings)](#9-should-be-in-c4udit---reduce-the-size-of-error-messages-long-revert-strings)
+- [9. (100 gas) - Missed by C4udit: State variables should be cached in stack variables rather than re-reading them from storage](#9-100-gas---missed-by-c4udit-state-variables-should-be-cached-in-stack-variables-rather-than-re-reading-them-from-storage)
+- [10. (Should be in C4udit) - Reduce the size of error messages (Long revert Strings)](#10-should-be-in-c4udit---reduce-the-size-of-error-messages-long-revert-strings)
 
 ## 1. (2100 fixed gas + 2100-4200 gas per iteration) `struct PriceInformation` is misread as `memory` instead of `storage`
 
@@ -291,21 +292,12 @@ File: PoolLogic.sol
 64:         }
 ```
 
-## 6. (100 gas) - Missed by C4udit: State variables should be cached in stack variables rather than re-reading them from storage
+## 6. (226 gas) `<x> += <y>` costs more gas than `<x> = <x> + <y>` for state variables
 
-Link to C4udit's output: <https://gist.github.com/Picodes/d39514dc40b7dee4fe0ff32768569cba#gas-4-state-variables-should-be-cached-in-stack-variables-rather-than-re-reading-them-from-storage>
-
-The following line is missing and can save **100 gas**:
-
-```diff
-File: NTokenApeStaking.sol
-36:     function initialize(
-...
-+ 45:         IPool pool_ = POOL;
-- 46:         _apeCoin.approve(address(POOL), type(uint256).max); //@audit SLOAD 1 (POOL)
-+ 46:         _apeCoin.approve(address(pool_), type(uint256).max);
-- 47:         getBAKC().setApprovalForAll(address(POOL), true); //@audit SLOAD 2 (POOL)
-+ 47:         getBAKC().setApprovalForAll(address(pool_), true);
+```solidity
+paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol:
+  146:             erc721Data.userState[from].collateralizedBalance -= 1;
+  318:         erc721Data.userState[user].balance -= balanceToBurn;
 ```
 
 ## 7. (300 gas) - Avoid emitting a storage variable when a memory value is available
@@ -427,10 +419,26 @@ paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol:
   243          bool siloedBorrowingEnabled;
   244          DataTypes.AssetType assetType;
   245      }
-
 ```
 
-## 9. (Should be in C4udit) - Reduce the size of error messages (Long revert Strings)
+## 9. (100 gas) - Missed by C4udit: State variables should be cached in stack variables rather than re-reading them from storage
+
+Link to C4udit's output: <https://gist.github.com/Picodes/d39514dc40b7dee4fe0ff32768569cba#gas-4-state-variables-should-be-cached-in-stack-variables-rather-than-re-reading-them-from-storage>
+
+The following line is missing and can save **100 gas**:
+
+```diff
+File: NTokenApeStaking.sol
+36:     function initialize(
+...
++ 45:         IPool pool_ = POOL;
+- 46:         _apeCoin.approve(address(POOL), type(uint256).max); //@audit SLOAD 1 (POOL)
++ 46:         _apeCoin.approve(address(pool_), type(uint256).max);
+- 47:         getBAKC().setApprovalForAll(address(POOL), true); //@audit SLOAD 2 (POOL)
++ 47:         getBAKC().setApprovalForAll(address(pool_), true);
+```
+
+## 10. (Should be in C4udit) - Reduce the size of error messages (Long revert Strings)
 
 Shortening revert strings to fit in 32 bytes will decrease deployment time gas and will decrease runtime gas when the revert condition is met.
 
