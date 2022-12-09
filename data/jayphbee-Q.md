@@ -72,3 +72,25 @@ Either
 1. initialize the `_status` variable in the construtor of `ParaReentrancyGuard`
 or
 2. initilize the `_status` variable like `PoolCore` do in the `PoolApeStaking` and `PoolMarketplace` contract.
+
+# [L-03] WETHGateway.repayETH will revert if `msg.value > paybackAmount`
+In the `repayETH` function, `paybackAmount` eth will be deposit to WETH contract to get `paybackAmount` weth back.
+```solidity
+WETH.deposit{value: paybackAmount}();
+```
+And then repay `msg.value` to pool
+```solidity
+IPool(pool).repay(address(WETH), msg.value, onBehalfOf);
+```
+Here if `msg.value > paybackAmount`, `IPool(pool).repay` will revert due to insufficient weth.
+
+### Recommendation
+change
+```solidity
+IPool(pool).repay(address(WETH), msg.value, onBehalfOf);
+```
+to
+```solidity
+IPool(pool).repay(address(WETH), paybackAmount, onBehalfOf);
+```
+* https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/ui/WETHGateway.sol#L112-L113
