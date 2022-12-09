@@ -1,3 +1,22 @@
+## DomainSeparator can be cached
+
+https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L1133-L1144
+
+```solidity
+    function getDomainSeparator() internal view returns (bytes32) {
+        return
+            keccak256(
+                abi.encode(
+                    0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f, // keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)")
+                    0x88d989289235fb06c18e3c2f7ea914f41f773e86fb0073d632539f566f4df353, // keccak256("ParaSpace")
+                    0x722c0e0c80487266e8c6a45e3a1a803aab23378a9c32e6ebe029d4fad7bfc965, // keccak256(bytes("1.1")),
+                    block.chainid,
+                    address(this)
+                )
+            );
+    }
+```
+
 ## Unnecessay safeTransferFrom with WETH
 
 Since we know the implementation of WETH, the extra check with SafeERC20 is not required.
