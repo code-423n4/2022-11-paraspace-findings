@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "ksk2345",
+  "risk": "2",
+  "title": "Functionality of supplyWithPermit is broken for DAI",
+  "issueId": 338,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/338"
+}
