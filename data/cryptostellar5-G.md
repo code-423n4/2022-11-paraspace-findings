@@ -193,7 +193,25 @@ https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contrac
 
 ### G-03 SPLITTING REQUIRE() STATEMENTS THAT USE && SAVES GAS
 
-*Number of Instances Identified: 11*
+*Number of Instances Identified: 13*
+
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol
+
+```
+41-45: require(
+            // NOT criteria based and must be basic order
+            resolvers.length == 0 && isBasicOrder(advancedOrder), 
+            Errors.INVALID_MARKETPLACE_ORDER
+        );
+71-77: require(
+            // NOT criteria based and must be basic order
+            advancedOrders.length == 2 && 
+                isBasicOrder(advancedOrders[0]) &&
+                isBasicOrder(advancedOrders[1]),
+            Errors.INVALID_MARKETPLACE_ORDER
+        );
+```
+
 
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol
 
