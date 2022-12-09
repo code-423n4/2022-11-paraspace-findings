@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "2",
+  "title": "user collateral NFT open auctions would be sold as min price immediately next times user health factor gets below the liquidation threshold, protocol should check health factor and set auctionValidityTime value anytime an valid action happen to user account to invalidate old open auctions",
+  "issueId": 323,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/323"
+}
