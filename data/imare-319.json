@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "imare",
+  "risk": "2",
+  "title": "Usage of deprecated Chainlink functions",
+  "issueId": 319,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/319"
+}
