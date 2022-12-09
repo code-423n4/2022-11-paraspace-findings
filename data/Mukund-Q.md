@@ -1,3 +1,7 @@
+## UNUSED/EMPTY RECEIVE()/FALLBACK() FUNCTION
+If the intention is for the Ether to be used, the function should call another function, otherwise it should revert (e.g. require(msg.sender == address(weth))). Having no access control on the function means that someone may send Ether to the contract, and have no way to get anything back out, which is a loss of funds 
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NTokenUniswapV3.sol#L149
+
 ## EVENTS IS MISSING INDEXED FIELD
 Use at least 3 indexed field in events 
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/interfaces/IPoolConfigurator.sol#L19-L24
