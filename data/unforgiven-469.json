@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "3",
+  "title": "double user token spending in function executeBuyWithCredit() contract transfer user wETH fund for wETH orders even when user send payment as ETH to contract and contract converted it to wETH (_depositETH() and _delegateToPool() takes user funds when user sends ETH and tries to buy WETH order)",
+  "issueId": 469,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/469"
+}
