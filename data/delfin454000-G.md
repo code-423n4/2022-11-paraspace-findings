@@ -1,5 +1,22 @@
-### Use of `if/else` when `require` functions could be used
-Using `requires` will save gas in the case below
+## Summary	
+### Gas findings
+
+| Issue | Description | Instances |
+| -- | ----------- | -------- |
+|1| Use `require` functions instead of simple `if/else` |1|
+|2| Avoid use of '&&' within a `require` function|13|
+|3| Use `private` constants rather than `public` constants|7|
+|4| Avoid storage of uints or ints smaller than 32 bytes, if possible|31|
+|5| Avoid use of default "checked" behavior in a `for` loop |49|
+|6| Avoid initializing constant that is never used |1|
+|7| Inline a function/modifier that is only used once  |17|
+|| Total|119|
+
+
+| No. | Explanation + instances | 
+|--| ----------- | 
+|1|**Use `require` functions instead of simple `if/else`**|
+|  | Using two `require` functions will save gas in the case below|
 
 [PoolAddressesProvider.sol: L213-220](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/configuration/PoolAddressesProvider.sol#L213-L220)
 ```solidity
@@ -19,12 +36,188 @@ Recommendation:
             return marketplace;
 ```
 ___
+
+| No. | Explanation + instances | 
+|--| ----------- | 
+|2|**Avoid use of '&&' within a `require` function|
+|  | Splitting into separate `require()` statements saves gas|
+
+[SeaportAdapter.sol: L41-45](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L41-L45)
+```solidity
+        require(
+            // NOT criteria based and must be basic order
+            resolvers.length == 0 && isBasicOrder(advancedOrder),
+            Errors.INVALID_MARKETPLACE_ORDER
+        );
+```
+Recommendation:
+```solidity
+        // NOT criteria based and must be basic order
+        require(resolvers.length == 0, Errors.INVALID_MARKETPLACE_ORDER);  
+        require(isBasicOrder(advancedOrder), Errors.INVALID_MARKETPLACE_ORDER);  
+```
+___
+[SeaportAdapter.sol: L71-77](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L71-L77)
+```solidity
+        require(
+            // NOT criteria based and must be basic order
+            advancedOrders.length == 2 &&
+                isBasicOrder(advancedOrders[0]) &&
+                isBasicOrder(advancedOrders[1]),
+            Errors.INVALID_MARKETPLACE_ORDER
+        );
+```
+Recommendation:
+```solidity
+        // NOT criteria based and must be basic order
+        require(advancedOrders.length == 2, Errors.INVALID_MARKETPLACE_ORDER);  
+        require(isBasicOrder(advancedOrders[0]), Errors.INVALID_MARKETPLACE_ORDER);  
+        require(isBasicOrder(advancedOrders[1]), Errors.INVALID_MARKETPLACE_ORDER);  
+```
+___
+[MarketplaceLogic.sol: L171-175](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L171-L175)
+```solidity
+        require(
+            marketplaceIds.length == payloads.length &&
+                payloads.length == credits.length,
+            Errors.INCONSISTENT_PARAMS_LENGTH
+        );
+```
+Recommendation:
+```solidity
+        require(marketplaceIds.length == payloads.length, Errors.INCONSISTENT_PARAMS_LENGTH);  
+        require(payloads.length == credits.length, Errors.INCONSISTENT_PARAMS_LENGTH);  
+```
+Similarly for the following require:
+
+[MarketplaceLogic.sol: L279-283](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L279-L283)
+___
+[ValidationLogic.sol: L546-549](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L546-L549)
+```solidity
+        require(
+            vars.collateralReserveActive && vars.principalReserveActive,
+            Errors.RESERVE_INACTIVE
+        );
+```
+Recommendation:
+```solidity
+        require(vars.collateralReserveActive, Errors.RESERVE_INACTIVE);  
+        require(vars.principalReserveActive, Errors.RESERVE_INACTIVE);  
+```
+___
+[ValidationLogic.sol: L550-553](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L550-L553)
+```solidity
+        require(
+            !vars.collateralReservePaused && !vars.principalReservePaused,
+            Errors.RESERVE_PAUSED
+        );
+```
+Recommendation:
+```solidity
+        require(!vars.collateralReservePaused, Errors.RESERVE_PAUSED);  
+        require(!vars.principalReservePaused, Errors.RESERVE_PAUSED);  
+```
+___
+[ValidationLogic.sol: L636-639](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L636-L639)
+```solidity
+        require(
+            vars.collateralReserveActive && vars.principalReserveActive,
+            Errors.RESERVE_INACTIVE
+        );
+```
+Recommendation:
+```solidity
+        require(vars.collateralReserveActive, Errors.RESERVE_INACTIVE);  
+        require(vars.principalReserveActive, Errors.RESERVE_INACTIVE);  
+```
+___
+[ValidationLogic.sol: L640-643](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L640-L643)
+```solidity
+        require(
+            !vars.collateralReservePaused && !vars.principalReservePaused,
+            Errors.RESERVE_PAUSED
+        );
+```
+Recommendation:
+```solidity
+        require(!vars.collateralReservePaused, Errors.RESERVE_PAUSED);  
+        require(!vars.principalReservePaused, Errors.RESERVE_PAUSED);  
+```
+___
+[ValidationLogic.sol: L672-676](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L672-L676)
+```solidity
+        require(
+            params.maxLiquidationAmount >= params.actualLiquidationAmount &&
+                (msg.value == 0 || msg.value >= params.maxLiquidationAmount),
+            Errors.LIQUIDATION_AMOUNT_NOT_ENOUGH
+        );
+```
+Recommendation:
+```solidity
+        require(params.maxLiquidationAmount >= params.actualLiquidationAmount, Errors.LIQUIDATION_AMOUNT_NOT_ENOUGH);  
+        require(msg.value == 0 || msg.value >= params.maxLiquidationAmount, Errors.LIQUIDATION_AMOUNT_NOT_ENOUGH);  
+```
+___
+[ValidationLogic.sol: L1196-1199](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L1196-L1199)
+```solidity
+            require(
+                vars.token0IsActive && vars.token1IsActive,
+                Errors.RESERVE_INACTIVE
+            );
+```
+Recommendation:
+```solidity
+            require(vars.token0IsActive, Errors.RESERVE_INACTIVE);  
+            require(vars.token1IsActive, Errors.RESERVE_INACTIVE);  
+```
+___
+[ValidationLogic.sol: L1202-1205](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L1202-L1205)
+```solidity
+            require(
+                !vars.token0IsPaused && !vars.token1IsPaused,
+                Errors.RESERVE_PAUSED
+            );
+```
+Recommendation:
+```solidity
+            require(!vars.token0IsPaused, Errors.RESERVE_PAUSED);  
+            require(!vars.token1IsPaused, Errors.RESERVE_PAUSED);  
+```
+___
+[ValidationLogic.sol: L1208-1211](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L1208-L1211)
+```solidity
+            require(
+                !vars.token0IsFrozen && !vars.token1IsFrozen,
+                Errors.RESERVE_FROZEN
+            );
+```
+Recommendation:
+```solidity
+            require(!vars.token0IsFrozen, Errors.RESERVE_FROZEN);  
+            require(!vars.token1IsFrozen, Errors.RESERVE_FROZEN);  
+```
+___
+[PoolParameters.sol: L216-220](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/pool/PoolParameters.sol#L216-L220)
+```solidity
+        require(
+            value > MIN_AUCTION_HEALTH_FACTOR &&
+                value <= MAX_AUCTION_HEALTH_FACTOR,
+            Errors.INVALID_AMOUNT
+        );
+```
+Recommendation:
+```solidity
+        require(value > MIN_AUCTION_HEALTH_FACTOR, Errors.INVALID_AMOUNT);  
+        require(value <= MAX_AUCTION_HEALTH_FACTOR, Errors.INVALID_AMOUNT);  
+```
+___
 ___
 
-### Use `private` constants rather than `public` constants
-Gas is saved by using private constants since the compiler does not have to (1) create non-payable getter functions for deployment calldata; and (2) add another entry to the method ID table. The value of the constant can be read from the verified contract source code, if necessary. 
+| No. | Explanation + instances | 
+|--| ----------- | 
+|3|**Use `private` constants rather than `public` constants**|
+|  | Gas is saved by using private constants since the compiler does not have to (1) create non-payable getter functions for deployment calldata; and (2) add another entry to the method ID table. The value of the constant can be read from the verified contract source code, if necessary. |
 
-___
 [LiquidationLogic.sol: L57](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/LiquidationLogic.sol#L57)
 ```solidity
     uint256 public constant MAX_LIQUIDATION_CLOSE_FACTOR = 1e4;
@@ -62,10 +255,11 @@ ___
 ___
 ___
 
-### Avoid storage of uints or ints smaller than 32 bytes, if possible
-Storage of uints or ints smaller than 32 bytes incurs overhead. Instead, use size of at least 32, then downcast where needed
+| No. | Explanation + instances | 
+|--| ----------- | 
+|4|**Avoid storage of uints or ints smaller than 32 bytes, if possible**|
+|  | Storage of uints or ints smaller than 32 bytes incurs overhead. Instead, use size of at least 32, then downcast where needed |
 
-___
 [NFTFloorOracle.sol: L9](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L9)
 ```solidity
 uint8 constant MIN_ORACLES_NUM = 3;
@@ -224,12 +418,12 @@ ___
         uint16 referralCode
 ```
 ___
-___
 
-### Avoid use of default "checked" behavior in a `for` loop
-Underflow/overflow checks are made every time `++i` (or `i++` or equivalent counter) is called. Such checks are unnecessary since `i` is already limited. Therefore, use `unchecked {++i}`/`unchecked {i++}` instead, as shown below:
+| No. | Explanation + instances | 
+|--| ----------- | 
+|5|**Avoid use of default "checked" behavior in a `for` loop**|
+|  | Underflow/overflow checks are made every time `++i` (or `i++` or equivalent counter) is called. Such checks are unnecessary since `i` is already limited. Therefore, use `unchecked {++i}`/`unchecked {i++}` instead, as shown below: |
 
-___
 [NFTFloorOracle.sol: L229-231](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L229-L231)
 ```solidity
         for (uint256 i = 0; i < _assets.length; i++) {
@@ -323,11 +517,12 @@ Similarly, for the following 48 `for` loops:
 
 [L82-87](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/ui/WPunkGateway.sol#L82-L87), [L109-111](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/ui/WPunkGateway.sol#L109-L111), [L113-116](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/ui/WPunkGateway.sol#L113-L116), [L136-147](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/ui/WPunkGateway.sol#L136-L147), [L174-185](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/ui/WPunkGateway.sol#L174-L185)
 ___
-___
 
-### Constant initialized but never used
-Explanation: Unused constants should be removed since constant initialization costs gas
- 
+| No. | Explanation + instances | 
+|--| ----------- | 
+|6|**Avoid initializing constant that is never used**|
+|  | Unused constants should be removed since constant initialization costs gas |
+
 [ValidationLogic.sol: L45](https://github.com/code-423n4/2022-11-paraspace/blob/3e4e2e4e1322482dcdc6d342f8799cd44a3e42f5/paraspace-core/contracts/protocol/libraries/logic/ValidationLogic.sol#L45)
 ```solidity
     uint256 public constant REBALANCE_UP_LIQUIDITY_RATE_THRESHOLD = 0.9e4;
@@ -336,10 +531,12 @@ Remove unused `REBALANCE_UP_LIQUIDITY_RATE_THRESHOLD`
 ___
 ___
 
-### Inline a function/modifier that’s only used once
-It costs less gas to inline the code of functions that are only called once. Doing so saves the cost of allocating the function selector, and the cost of the jump when the function is called.
+| No. | Explanation + instances | 
+|--| ----------- | 
+|7|**Inline a function/modifier that’s only used once**|
+|  |It costs less gas to inline the code of functions that are only called once. Doing so saves the cost of allocating the function selector, and the cost of the jump when the function is called. |
 
-__Modifiers__
+**Modifiers**
 
 [NFTFloorOracle.sol: L122-125](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L122-L125)
 ```solidity
@@ -375,9 +572,8 @@ Since `onlyWhenFeederNotExisted()` is used only once (in `function _addFeeder()`
     {
 ```
 ___
-___
 
-__Functions__
+**Functions**
 
 [NFTFloorOracle.sol: L265](https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/misc/NFTFloorOracle.sol#L265)
 ```solidity
