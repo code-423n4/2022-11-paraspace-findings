@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Trust",
+  "risk": "2",
+  "title": "Price can deviate by much more than maxDeviationRate",
+  "issueId": 491,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/491"
+}
