@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "c7e7eff",
+  "risk": "3",
+  "title": "CryptoPunk can to be stolen by front-running WPunkGateway 's supplyPunk()",
+  "issueId": 314,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/314"
+}
