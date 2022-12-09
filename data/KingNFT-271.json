@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "KingNFT",
+  "risk": "2",
+  "title": "The ````fallback()```` function of PoolCore.sol isn't working",
+  "issueId": 271,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/271"
+}
