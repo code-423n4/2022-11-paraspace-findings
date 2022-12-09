@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "0xNazgul",
+  "risk": "2",
+  "title": "[NAZ-M1] Use Of Deprecated Chainlink Function `latestAnswer` ",
+  "issueId": 396,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/396"
+}
