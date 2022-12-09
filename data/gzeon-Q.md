@@ -75,3 +75,14 @@ https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749f
 ReserveConfiguration used a bit masking appoach to pack storage. While no issue is found at the moment it is a risky design. Consider using a packed struct instead.
 
 https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/configuration/ReserveConfiguration.sol#L12-L13
+
+### Unresolved TODOs
+
+```
+contracts/mocks/tokens/Moonbirds.sol:483:OpenSea's example code. TODO: it's likely that the above mapping can be changed
+contracts/misc/UniswapV3OracleWrapper.sol:238:        // TODO using bit shifting for the 2^96
+contracts/misc/marketplaces/LooksRareAdapter.sol:59:            makerAsk.price, // TODO: take minPercentageToAsk into account
+contracts/ui/UiIncentiveDataProvider.sol:68:            // TODO: check that this is deployed correctly on contract and remove casting
+contracts/protocol/libraries/logic/MarketplaceLogic.sol:442:        // TODO: support PToken
+contracts/interfaces/INToken.sol:97:    // TODO are we using the Treasury at all? Can we remove?
+```
