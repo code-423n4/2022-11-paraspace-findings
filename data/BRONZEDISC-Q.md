@@ -1,8 +1,19 @@
-### QA 
+### QA
 
 ### The order of the layout does not follow best practices.
 
 - The best-practices for layout within a contract is the following order: state variables, events, modifiers, constructor and functions.
+
+```solidity
+file: /contracts/misc/NFTFloorOracle.sol
+
+// events coming before state variables
+56:    event AssetAdded(address indexed asset);
+
+// function coming before modifiers
+97:    function initialize(
+```
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L56
 
 ```solidity
 file: /contracts/protocol/pool/PoolConfigurator.sol
@@ -232,6 +243,113 @@ https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contrac
 ### Netspec missing / misspelled
 
 - Everything should be documented to devs and users for a better understanding
+
+```solidity
+file: /contracts/ui/WPunkGateway.sol
+
+// immutable variable should be have a preppended `underline` before declaration
+28:    IPunks internal immutable Punk;
+
+// immutable variable should be have a preppended `underline` before declaration
+29:    IWrappedPunks internal immutable WPunk;
+
+// immutable variable should be have a preppended `underline` before declaration
+30:    IPool internal immutable Pool;
+
+// immutable variable should be have a preppended `underline` before declaration
+33:    address public immutable punk;
+
+// immutable variable should be have a preppended `underline` before declaration
+34:    address public immutable wpunk;
+
+// immutable variable should be have a preppended `underline` before declaration
+35:    address public immutable pool;
+```
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/ui/WPunkGateway.sol
+
+```solidity
+file: /contracts/misc/UniswapV3OracleWrapper.sol
+
+// immutable variable named as a constant
+18:    IUniswapV3Factory immutable UNISWAP_V3_FACTORY;
+
+// immutable variable named as a constant
+19:    INonfungiblePositionManager immutable UNISWAP_V3_POSITION_MANAGER;
+
+// immutable variable named as a constant
+20:    IPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
+
+
+// netspec missing
+23:    constructor(
+
+// netspec missing
+33:    struct FeeParams {
+
+// netspec missing
+40:    struct PairOracleData {
+
+// netspec missing
+217:    function latestAnswer() external pure returns (int256) {
+
+// netspec missing
+221:    function _getOracleData(UinswapV3PositionData memory positionData)
+
+// netspec missing
+282:    function _getPendingFeeAmounts(UinswapV3PositionData memory positionData)
+```
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol
+
+```solidity
+file: /contracts/ui/UiIncentiveDataProvider.sol
+
+// immutable variable named as a constant
+33:    IPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
+
+// netspec missing
+34:    constructor(IPoolAddressesProvider addressesProvider) {
+```
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/ui/UiIncentiveDataProvider.sol
+
+```solidity
+file: /contracts/misc/ParaSpaceOracle.sol
+
+// immutable variable named as a constant
+22:    IPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
+
+// immutable variable named as a constant
+28:    address public immutable override BASE_CURRENCY;
+
+// immutable variable named as a constant
+29:    uint256 public immutable override BASE_CURRENCY_UNIT;
+
+// netspec missing
+138:    function getTokenPrice(address asset, uint256 tokenId)
+
+// netspec missing
+155:    function getTokensPrices(address asset, uint256[] calldata tokenIds)
+
+// netspec missing
+172:    function getTokensPricesSum(address asset, uint256[] calldata tokenIds)
+
+// netspec missing
+218:    function _onlyAssetListingOrPoolAdmins() internal view {
+```
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceOracle.sol
+
+```solidity
+file: /contracts/misc/ParaSpaceFallbackOracle.sol
+
+// netspec missing
+20:     constructor(
+
+// netspec missing
+34:     function getAssetPrice(address asset) public view returns (uint256) {
+
+// netspec missing
+63:    function getEthUsdPrice() public view returns (uint256) {
+```
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceFallbackOracle.sol
 
 ```solidity
 file: /contracts/protocol/pool/PoolApeStaking.sol
@@ -515,9 +633,25 @@ file: /contracts/protocol/pool/DefaultReserveInterestRateStrategy.sol
 
 // netspec missing
 116:    struct CalcInterestRatesLocalVars {
-
 ```
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/DefaultReserveInterestRateStrategy.sol
+
+
+```solidity
+file: /contracts/misc/ParaSpaceFallbackOracle.sol
+
+// change BEND_DAO to _bend_dao
+12:    address public immutable BEND_DAO;
+// change UNISWAP_FACTORY to _uniswap_factory
+13:    address public immutable UNISWAP_FACTORY;
+// change UNISWAP_ROUTER to _uniswap_router
+14:    address public immutable UNISWAP_ROUTER;
+// change WETH to _weth
+15:    address public immutable WETH;
+// change USDC to _usdc
+16:    address public immutable USDC;
+```
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/ParaSpaceFallbackOracle.sol
 
 ---
 &nbsp;
