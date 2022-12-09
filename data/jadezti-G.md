@@ -39,7 +39,7 @@ for (uint i; i<length;){
 }
 ```
 
-for-loop instances in the smart contracts:
+for-loop instances in the smart contracts that can be further optimized by applying `unchecked` math operation:
 ```js
 File: paraspace-core/contracts/protocol/libraries/logic/FlashClaimLogic.sol
 
