@@ -2,143 +2,16 @@
 
 |         | Issue                                                                                                              | Instances |
 | ------- | :----------------------------------------------------------------------------------------------------------------- | :-------: |
-| [G-001] | x += y or x -= y costs more gas than x = x + y or x = x - y for state variables                                    |    26     |
-| [G-002] | Splitting require() statements that use `&&` saves gas                                                             |    11     |
-| [G-003] | Don't use `_msgSender()` if not supporting EIP-2771                                                                |     3     |
-| [G-004] | Multiple address/ID mappings can be combined into a single mapping of an address/ID to a struct, where appropriate |    12     |
-| [G-005] | Using `calldata` instead of memory for read-only arguments in external functions saves gas                         |     8     |
-| [G-006] | internal functions only called once can be inlined to save gas                                                     |     7     |
-| [G-007] | Replace modifier with function                                                                                     |     5     |
-| [G-008] | Use elementary types or a user-defined type instead of a struct that has only one member                           |     1     |
-| [G-009] | Use named returns for local variables where it is possible.                                                        |     6     |
+| [G-001] | Splitting require() statements that use `&&` saves gas                                                             |    11     |
+| [G-002] | Don't use `_msgSender()` if not supporting EIP-2771                                                                |     3     |
+| [G-003] | Multiple address/ID mappings can be combined into a single mapping of an address/ID to a struct, where appropriate |    12     |
+| [G-004] | Using `calldata` instead of memory for read-only arguments in external functions saves gas                         |     8     |
+| [G-005] | internal functions only called once can be inlined to save gas                                                     |     7     |
+| [G-006] | Replace modifier with function                                                                                     |     5     |
+| [G-007] | Use elementary types or a user-defined type instead of a struct that has only one member                           |     1     |
+| [G-008] | Use named returns for local variables where it is possible.                                                        |     6     |
 
-## [G-001] x += y or x -= y costs more gas than x = x + y or x = x - y for state variables
-
-### Impact
-
-Using the addition operator instead of plus-equals saves 113 gas. Usually does not work with struct and mappings.
-
-### Findings
-
-Total:26
-
-[paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L149](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L149)
-
-[paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L150](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L150)
-
-[paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L211](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/misc/UniswapV3OracleWrapper.sol#L211)
-
-```solidity
-149:    token0Amount += positionData.tokensOwed0;
-150:    token1Amount += positionData.tokensOwed1;
-...
-211:    sum += getTokenPrice(tokenIds[index]);
-```
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L169](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L169)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L176](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L176)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L178](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L178)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L235](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L235)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L185](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L185)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L238](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L238)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L189](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L189)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L231](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L231)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L233](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L233)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L237](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L237)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L380](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L380)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L479](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L479)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L496](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L496)
-
-[paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L497](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/GenericLogic.sol#L497)
-
-```solidity
-169:    vars.payableDebtByERC20Assets += vars
-...
-176:    vars.avgLtv += vars.userBalanceInBaseCurrency * vars.ltv;
-...
-178:    vars.totalCollateralInBaseCurrency += vars
-...
-185:    vars.avgLiquidationThreshold += vars.liquidationThreshold;
-...
-189:    vars.totalDebtInBaseCurrency += _getUserDebtInBaseCurrency(
-...
-231:    vars.avgERC721LiquidationThreshold += vars
-...
-233:    vars.totalERC721CollateralInBaseCurrency += vars
-...
-235:    vars.totalCollateralInBaseCurrency += vars
-...
-237:    vars.avgLtv += vars.ltv;
-...
-238:    vars.avgLiquidationThreshold += vars.liquidationThreshold;
-...
-380:    totalValue += _getTokenPrice(
-...
-479:    totalValue += tokenPrice;
-...
-496:    totalLTV += tmpLTV * tokenPrice;
-...
-497:    totalLiquidationThreshold +=
-...
-```
-
-[paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L83](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L83)
-
-[paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L205](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L205)
-
-[paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L397](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L397)
-
-```solidity
-83:    vars.ethLeft -= _buyWithCredit(
-...
-205:    vars.ethLeft -= _buyWithCredit(
-...
-397:    price += item.startAmount;
-```
-
-[paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol#L146](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol#L146)
-
-[paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol#L318](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/tokenization/libraries/MintableERC721Logic.sol#L318)
-
-```solidity
-146:    erc721Data.userState[from].collateralizedBalance -= 1;
-...
-318:    erc721Data.userState[user].balance -= balanceToBurn;
-```
-
-[paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol#L215](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol#L215)
-
-[paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol#L257](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol#L257)
-
-```solidity
-215:    totalAmount += getTokenIdStakingAmount(
-...
-257:    apeStakedAmount += bakcStakedAmount;
-```
-
-[paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L77](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L77)
-
-[paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L166](https://github.com/code-423n4/2022-11-paraspace/tree/main//paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L166)
-
-```solidity
-77:    amountToWithdraw += _nfts[index].amount;
-...
-166:    amountToWithdraw += _nftPairs[index].amount;
-```
-
-## [G-002] Splitting require() statements that use `&&` saves gas
+## [G-001] Splitting require() statements that use `&&` saves gas
 
 ### Impact
 
@@ -251,7 +124,7 @@ Total:11
 220:            );
 ```
 
-## [G-003] Don't use `_msgSender()` if not supporting EIP-2771
+## [G-002] Don't use `_msgSender()` if not supporting EIP-2771
 
 ### Impact
 
@@ -277,7 +150,7 @@ Total:3
 297:    _isApprovedOrOwner(_msgSender(), tokenId),
 ```
 
-## [G-004] Multiple address/ID mappings can be combined into a single mapping of an address/ID to a struct, where appropriate
+## [G-003] Multiple address/ID mappings can be combined into a single mapping of an address/ID to a struct, where appropriate
 
 ### Impact
 
@@ -378,11 +251,7 @@ Total:12
 206:            mapping(address => mapping(uint256 => uint256)) storage ownedTokens,
 ```
 
-### Recommendation
-
-Same as description
-
-## [G-005] Using `calldata` instead of memory for read-only arguments in external functions saves gas
+## [G-004] Using `calldata` instead of memory for read-only arguments in external functions saves gas
 
 ### Impact
 
@@ -457,7 +326,7 @@ Total:8
 190:            ApeCoinStaking.PairNftWithAmount[] memory _nftPairs
 ```
 
-## [G-006] internal functions only called once can be inlined to save gas
+## [G-005] internal functions only called once can be inlined to save gas
 
 ### Impact
 
@@ -509,7 +378,7 @@ Total:7
 76:    function _onlyPoolAdmin() internal view virtual {
 ```
 
-## [G-007] Replace modifier with function
+## [G-006] Replace modifier with function
 
 ### Impact
 
@@ -549,7 +418,7 @@ Total:5
 64:    modifier onlyPoolAdmin() {
 ```
 
-## [G-008] Use elementary types or a user-defined type instead of a struct that has only one member
+## [G-007] Use elementary types or a user-defined type instead of a struct that has only one member
 
 ### Impact
 
@@ -567,7 +436,7 @@ Total:1
 28:        }
 ```
 
-## [G-009] Use named returns for local variables where it is possible.
+## [G-008] Use named returns for local variables where it is possible.
 
 ### Impact
 
