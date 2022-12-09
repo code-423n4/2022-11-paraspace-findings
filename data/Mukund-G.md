@@ -1,4 +1,5 @@
 ## USING CALLDATA INSTEAD OF MEMORY FOR READ-ONLY ARGUMENTS IN EXTERNAL FUNCTIONS SAVES GAS
+It is cheaper to load variables directly from calldata, rather than copying them to memory.
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L574
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L587
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L626
@@ -16,7 +17,7 @@ https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contrac
 there are many instances like this in different contracts
 
 ## USE UNCHECK BLOCK FOR OPERATION THAT CANNOT OVERFLOW/UNDERFLOW 
-example use uncheck block for `++` operand in for loop to save gas
+example use uncheck block for `++` operand in for loop to save gas because it not likely to overflow and solidity ^0.8.0 automatically check for overflow and underflow which cost gas to avoid that we use uncheck block
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L72
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L103
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolApeStaking.sol#L138
@@ -35,6 +36,7 @@ Using the addition operator instead of plus-equals saves gas
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/libraries/ApeStakingLogic.sol#L257
 
 ## USAGE OF UINT SMALLER THAN 32 BYTES (256 BITS) INCURS OVERHEAD
+using uint smaller than uint256 cost more gas so its better to use uint256
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L9
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L12
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L14
