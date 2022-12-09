@@ -1,8 +1,10 @@
-#QA Report
+# QA Report
 
 ## Low Risk
 
-[LR-01] MintableIncentivizedERC721 onlyPoolAdmin modifier should use \_msgSender() instead of msg.sender
+### [LR-01] MintableIncentivizedERC721 onlyPoolAdmin modifier should use \_msgSender() instead of msg.sender
+
+Replace msg.sender with \_msgSender().
 
 ```solidity
     modifier onlyPoolAdmin() {
