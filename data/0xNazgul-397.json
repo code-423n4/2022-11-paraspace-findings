@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "0xNazgul",
+  "risk": "2",
+  "title": "[NAZ-M2] `minPercentageToAsk` Isn't Taken Into Account In `ConsiderationItem()`",
+  "issueId": 397,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/397"
+}
