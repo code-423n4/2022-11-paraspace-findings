@@ -47,6 +47,17 @@ https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749f
         require(price != 0, Errors.ORACLE_PRICE_NOT_READY);
 ```
 
+### Dangerous delegate call pattern
+
+The pool delegate call into the adapter logics to execute certain action, project admin / governance need to be very careful when approval new marketplace / adapter since it might brick the protocol if it modify storage slot / call selfdestruct.
+
+https://github.com/code-423n4/2022-11-paraspace/blob/c6820a279c64a299a783955749fdc977de8f0449/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L132-L133
+
+```solidity
+        Address.functionDelegateCall(
+            params.marketplace.adapter,
+```
+
 
 ## Non-Critical
 
