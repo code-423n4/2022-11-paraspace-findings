@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Deivitto",
+  "risk": "3",
+  "title": "`MarketplaceLogic.sol` doesn't support ERC20 Tokens with fee on transfer",
+  "issueId": 380,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/380"
+}
