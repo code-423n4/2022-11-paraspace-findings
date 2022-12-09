@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "unforgiven",
+  "risk": "2",
+  "title": "it's not possible to set unlimited approve delegation in DebtTokenBase, so other contracts can't work properly with Para protocol",
+  "issueId": 349,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/349"
+}
