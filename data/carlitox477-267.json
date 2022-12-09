@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "carlitox477",
+  "risk": "2",
+  "title": "Front-running admin setPrice call allows a single compromised oracle to set any price, allowing the oracle manipulator to drain all protocol funds",
+  "issueId": 267,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/267"
+}
