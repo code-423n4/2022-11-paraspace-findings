@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "brgltd",
+  "risk": "2",
+  "title": "Downcast can lead to overflow and impact the functionality to remove an asset in `NFTFloorOracle`",
+  "issueId": 484,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/484"
+}
