@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Trust",
+  "risk": "2",
+  "title": "Compromised admin can instantly take all NFTs held in NToken contracts",
+  "issueId": 485,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/485"
+}
