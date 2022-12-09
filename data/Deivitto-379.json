@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Deivitto",
+  "risk": "2",
+  "title": "Unsafe cast affects token price and pending fees amounts",
+  "issueId": 379,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/379"
+}
