@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "SmartSek",
+  "risk": "3",
+  "title": "Caller of `executeBatchBuyWithCredit()` could be refunded more ETH than the amount sent as `msg.value`",
+  "issueId": 273,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/273"
+}
