@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "csanuragjain",
+  "risk": "2",
+  "title": "Auction cannot be ended even when user has good health factor",
+  "issueId": 373,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/373"
+}
