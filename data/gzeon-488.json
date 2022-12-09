@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "gzeon",
+  "risk": "2",
+  "title": "PoolAdmin can steal NFT from NTokens",
+  "issueId": 488,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/488"
+}
