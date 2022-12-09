@@ -5,7 +5,7 @@
 |               | Issue         | Risk     | Instances     |
 | :-------------: |:-------------|:-------------:|:-------------:|
 | 1      | Immutable state variables lack zero address checks | Low | 15 |
-| 2      | Remove redundant checks to save gas |NC | 2 |
+| 2      | Remove redundant checks  |NC | 2 |
 | 3      | Remove redundant state variables | NC | 3 |
 | 4      | Use scientific notation | NC | 1 |
 | 5      | `2**<N>` should be re-written as `type(uint<N>).max`  | NC | 3 |
