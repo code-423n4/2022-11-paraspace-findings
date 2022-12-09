@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "pwnforce",
+  "risk": "2",
+  "title": "External functions supplyPunk, acceptBidWithCredit, and batchAcceptBidWithCredit should provide the possibility to buy punk directly ",
+  "issueId": 461,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/461"
+}
