@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "jayphbee",
+  "risk": "2",
+  "title": "`emergencyTokenTransfer` should exclude the `xTokenAddress` token (pWETH)",
+  "issueId": 370,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/370"
+}
