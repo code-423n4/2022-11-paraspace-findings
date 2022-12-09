@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "0x52",
+  "risk": "2",
+  "title": "Adversary can force user to pay large gas fees by transfering them collateral",
+  "issueId": 321,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/321"
+}
