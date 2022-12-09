@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "IllIllI",
+  "risk": "2",
+  "title": "During oracle outages or feeder outages/disagreement, the `ParaSpaceFallbackOracle` is not used",
+  "issueId": 420,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/420"
+}
