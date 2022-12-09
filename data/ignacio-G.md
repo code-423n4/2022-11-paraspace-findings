@@ -1,3 +1,8 @@
+ # UNUSED STATE VARIABLE 
+One or more state variables are never used in the codebase. 
+Variable STABLE_BORROWING_MASK and RESERVE_FACTOR_MASK   is never used in smart contarct.
+
+ 
 # REQUIRE()/REVERT() STRINGS LONGER THAN 32 BYTES COST EXTRA GAS 
 Each extra memory word of bytes past the original 32 incurs an MSTORE which costs 3 gas.
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L118
