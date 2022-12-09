@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "imare",
+  "risk": "2",
+  "title": "first ``setPrice`` of an asset can DOS the NFT oracle",
+  "issueId": 316,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/316"
+}
