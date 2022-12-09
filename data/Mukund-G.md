@@ -1,10 +1,6 @@
 ## USING CALLDATA INSTEAD OF MEMORY FOR READ-ONLY ARGUMENTS IN EXTERNAL FUNCTIONS SAVES GAS
-It is cheaper to load variables directly from calldata, rather than copying them to memory.
-https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L574
-https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L587
+When a function with a memory array is called externally, the `abi.decode()` step has to use a for-loop to copy each index of the `calldata` to the memory index. Each iteration of this for-loop costs at least 60 gas (i.e. 60 * <mem_array>.length). Using `calldata` directly, obliviates the need for such a loop in the contract code and runtime execution. Note that even if an interface defines a function as having memory arguments, it’s still valid for implementation `contracs` to use `calldata` arguments instead.
 https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L626
-https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/pool/PoolCore.sol#L754
-https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/NToken.sol#L318
 
 ## THE RESULT OF FUNCTION CALLS SHOULD BE CACHED RATHER THAN RE-CALLING THE FUNCTION
 here `poolStorage()` function is called in every function instead of calling it in every function save its value in global state 
