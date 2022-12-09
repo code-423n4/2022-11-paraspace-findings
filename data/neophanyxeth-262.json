@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "neophanyxeth",
+  "risk": "2",
+  "title": "The following external functions are missing reentrancy modifier. Even though I did not find a way to exploit it, it is better approach to have a nonReentrant modifier like the other functions.",
+  "issueId": 262,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/262"
+}
