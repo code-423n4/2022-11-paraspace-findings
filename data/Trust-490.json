@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "Trust",
+  "risk": "2",
+  "title": "Pausing assets only affects future price updates, not previous malicious updates.",
+  "issueId": 490,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/490"
+}
