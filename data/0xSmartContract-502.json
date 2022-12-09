@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "0xSmartContract",
+  "risk": "2",
+  "title": "Missing ReEntrancy Guard to  `executeAcceptBidWithCredit`  function",
+  "issueId": 502,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/502"
+}
