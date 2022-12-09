@@ -2,7 +2,7 @@
 
 File: `NFTFloorOracle.sol` [Line 331](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L331)
 
-```
+```solidity
         if (feederIndex >= 0 && feeders[feederIndex] == _feeder) {
 ```
 
@@ -10,7 +10,7 @@ Because [`feederIndex`](https://github.com/code-423n4/2022-11-paraspace/blob/mai
 
 Instead, you can refactor to the following:
 
-```
+```solidity
         if (feeders[feederIndex] == _feeder) {
 ```
 
@@ -40,14 +40,14 @@ For example:
 
 File: `MarketplaceLogic.sol` [Line 409 - 410](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/MarketplaceLogic.sol#L409-L410)
 
-```
+```solidity
             price = 0;
             downpayment = 0;
 ```
 
 The above could be refactored to:
 
-```
+```solidity
             delete price;
             delete downpayment;
 ```
@@ -82,7 +82,7 @@ There are 3 instances of this issue:
 
 File: NFTFloorOracle.sol ([Line 104](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L104), [Line 106](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L106), [Line 314](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/NFTFloorOracle.sol#L314))
 
-```
+```solidity
 104:         _setupRole(DEFAULT_ADMIN_ROLE, _admin);
 ...
 106:        _setupRole(UPDATER_ROLE, _admin);
@@ -92,7 +92,7 @@ File: NFTFloorOracle.sol ([Line 104](https://github.com/code-423n4/2022-11-paras
 
 Consider replacing `_setupRole()` with `_grantRole()`:
 
-```
+```solidity
 104:         _grantRole(DEFAULT_ADMIN_ROLE, _admin);
 ...
 106:        _grantRole(UPDATER_ROLE, _admin);
@@ -119,3 +119,53 @@ To comply with the [Solidity Style Guide](https://docs.soliditylang.org/en/devel
 For example, the instance below is **243** characters past the recommended limit
 
 File: `LiquidationLogic.sol` [Line 603](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/libraries/logic/LiquidationLogic.sol#L603)
+
+## 9. Unused imports
+
+Contracts that are imported and not used anywhere in the code are most likely an accident due to incomplete refactoring. Such imports can lead to confusion by readers.
+
+For example, here are some instances:
+
+`File: X2Y2Adapter.sol` ([Line 6](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol#L6), [Line 7](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol#L7), [Line 8](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol#L8), [Line 10](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol#L10), [Line 14](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol#L14), [Line 16](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/X2Y2Adapter.sol#L16)
+
+```solidity
+6: import {OrderTypes} from "../../dependencies/looksrare/contracts/libraries/OrderTypes.sol";
+
+7: import {SeaportInterface} from "../../dependencies/seaport/contracts/interfaces/SeaportInterface.sol";
+
+8: import {ILooksRareExchange} from "../../dependencies/looksrare/contracts/interfaces/ILooksRareExchange.sol";
+
+10: import {SignatureChecker} from "../../dependencies/looksrare/contracts/libraries/SignatureChecker.sol";
+
+14: import {IERC1271} from "../../dependencies/openzeppelin/contracts/IERC1271.sol";
+
+16: import {PoolStorage} from "../../protocol/pool/PoolStorage.sol";
+```
+
+File: LooksRareAdapter.sol ([Line 7](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L7), [Line 9](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L9), [Line 13](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L13), [Line 15](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/LooksRareAdapter.sol#L15))
+
+```solidity
+7: import {SeaportInterface} from "../../dependencies/seaport/contracts/interfaces/SeaportInterface.sol";
+
+9: import {SignatureChecker} from "../../dependencies/looksrare/contracts/libraries/SignatureChecker.sol";
+
+13: import {IERC1271} from "../../dependencies/openzeppelin/contracts/IERC1271.sol";
+
+15: import {PoolStorage} from "../../protocol/pool/PoolStorage.sol";
+```
+
+File: SeaportAdapter.sol ([Line 6](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L6), [Line 8](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L8), [Line 9](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L9), [Line 10](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L10), [Line 13](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L13), [Line 15](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/misc/marketplaces/SeaportAdapter.sol#L15))
+
+```solidity
+6: import {OrderTypes} from "../../dependencies/looksrare/contracts/libraries/OrderTypes.sol";
+
+8: import {ILooksRareExchange} from "../../dependencies/looksrare/contracts/interfaces/ILooksRareExchange.sol";
+
+9: import {SignatureChecker} from "../../dependencies/looksrare/contracts/libraries/SignatureChecker.sol";
+
+10: import {ConsiderationItem} from "../../dependencies/seaport/contracts/lib/ConsiderationStructs.sol";
+
+13: import {IERC1271} from "../../dependencies/openzeppelin/contracts/IERC1271.sol";
+
+15: import {PoolStorage} from "../../protocol/pool/PoolStorage.sol";
+```
