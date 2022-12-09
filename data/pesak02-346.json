@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "pesak02",
+  "risk": "2",
+  "title": "Lack of return check can loose tokens",
+  "issueId": 346,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/346"
+}
