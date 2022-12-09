@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "minhquanym",
+  "risk": "3",
+  "title": "Attacker can manipulate low TVL Uniswap V3 pool to borrow and swap to make Lending Pool in loss.",
+  "issueId": 407,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/407"
+}
