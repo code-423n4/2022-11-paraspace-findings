@@ -1,0 +1,8 @@
+{
+  "contest": 186,
+  "handle": "fs0c",
+  "risk": "2",
+  "title": "Hacked owner or malicious owner of PoolAddressesProvider can steal all assets from the platform.",
+  "issueId": 347,
+  "issueUrl": "https://github.com/code-423n4/2022-11-paraspace-findings/issues/347"
+}
