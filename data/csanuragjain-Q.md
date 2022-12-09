@@ -143,3 +143,49 @@ assets[1] = {B}
 
 Recommendation:
 Instead of directly deleting the asset, swap deleted asset index with last index asset and then pop last element. Sample example is `_removeFeeder`
+
+## Support for IERC165 interface id is missed
+
+Contract:
+https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol#L572
+
+Impact:
+Contract fails to support a valid interface which could lead to failure of genuine calls
+
+Steps:
+
+1. Observe the [supportsInterface](https://github.com/code-423n4/2022-11-paraspace/blob/main/paraspace-core/contracts/protocol/tokenization/base/MintableIncentivizedERC721.sol#L572)
+
+```
+function supportsInterface(bytes4 interfaceId)
+        external
+        view
+        virtual
+        override(IERC165)
+        returns (bool)
+    {
+        return
+            interfaceId == type(IERC721Enumerable).interfaceId ||
+            interfaceId == type(IERC721Metadata).interfaceId;
+    }
+```
+
+2. Observe that support for IERC165 interface id is missing
+
+Recommendation:
+Kindly revise the function as below:
+
+```
+function supportsInterface(bytes4 interfaceId)
+        external
+        view
+        virtual
+        override(IERC165)
+        returns (bool)
+    {
+        return
+            interfaceId == type(IERC721Enumerable).interfaceId ||
+            interfaceId == type(IERC721Metadata).interfaceId ||
+            interfaceId == type(IERC165).interfaceId;
+    }
+```
