@@ -1,6 +1,6 @@
 {
   "contest": 186,
-  "handle": "skinz",
+  "handle": "skinheadz",
   "risk": "3",
   "title": "Update initializer library to prevent reentrancy during initialization",
   "issueId": 412,
